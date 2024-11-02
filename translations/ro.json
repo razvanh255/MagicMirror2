@@ -9,6 +9,8 @@
 	"RUNNING": "Se termină în",
 	"EMPTY": "Nici un eveniment.",
 	"WEEK": "Săptămâna {weekNumber}",
+	"DAY": "Ziua {dayNumber}",
+	"WEEK!": "Săpt.",
 
 	"N": "N",
 	"NNE": "NNE",

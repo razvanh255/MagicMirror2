@@ -15,14 +15,14 @@ const Translator = (function () {
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
 					// needs error handler try/catch at least
-					let fileInfo = null;
+					let fileinfo = null;
 					try {
-						fileInfo = JSON.parse(xhr.responseText);
+						fileinfo = JSON.parse(xhr.responseText);
 					} catch (exception) {
 						// nothing here, but don't die
 						Log.error(` loading json file =${file} failed`);
 					}
-					resolve(fileInfo);
+					resolve(fileinfo);
 				}
 			};
 			xhr.send(null);
