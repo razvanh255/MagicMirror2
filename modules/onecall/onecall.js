@@ -22,7 +22,7 @@ Module.register("onecall", {
 		appIds: {
 			random: [
 
-					]
+			]
 		},
 
 		// important settings
@@ -178,7 +178,7 @@ Module.register("onecall", {
 		small.className = "normal medium currentweather";
 
 		var windIcon = document.createElement("span");
-		windIcon.className = "wi wi-strong-wind cyan";
+		windIcon.className = "wi wi-strong-wind blue";
 		small.appendChild(windIcon);
 
 		if (this.config.showWindDirection) {
@@ -197,11 +197,11 @@ Module.register("onecall", {
 
 		var windSpeed = document.createElement("span");
 		if (this.windSpeed > 50 && this.windSpeed < 75) {
-			windSpeed.className = "lightblue";
+			windSpeed.className = "blue";
 		} else if (this.windSpeed > 75 && this.windSpeed < 100) {
-			windSpeed.className = "yellow";
+			windSpeed.className = "orange";
 		} else if (this.windSpeed > 100) {
-			windSpeed.className = "coral";
+			windSpeed.className = "orangered";
 		} else windSpeed.className = " ";
 		windSpeed.innerHTML = " " + this.windSpeed;
 		small.appendChild(windSpeed);
@@ -209,9 +209,9 @@ Module.register("onecall", {
 		var windSpeedUnit = document.createElement("span");
 		windSpeedUnit.className = "subs";
 		if (this.config.units === "metric" || this.config.units === "default") {
-			windSpeedUnit.innerHTML = " km/h ";
+			windSpeedUnit.innerHTML = "km/h ";
 		} else if (this.config.units === "imperial") {
-			windSpeedUnit.innerHTML = " mph ";
+			windSpeedUnit.innerHTML = "mph ";
 		}
 		small.appendChild(windSpeedUnit);
 
@@ -220,16 +220,16 @@ Module.register("onecall", {
 			var pressure = document.createElement("span");
 			var atpressure = Math.round(this.pressure * 750.062 / 1000);
 				if (atpressure < 745) {
-					pressure.className = "pressure lightblue";
+					pressure.className = "pressure blue";
 				} else if (atpressure > 775) {
 					pressure.className = "pressure orange";
-				} else pressure.className = "pressure greenyellow";
+				} else pressure.className = "pressure green";
 			pressure.innerHTML = " <i class=\"wi wi-barometer gold\"></i>" + Math.round(this.pressure * 750.062 / 1000);
 			small.appendChild(pressure);
 
 			var pressureSub = document.createElement("span");
 			pressureSub.className = "subs";
-			pressureSub.innerHTML = " Hg ";
+			pressureSub.innerHTML = "Hg ";
 			small.appendChild(pressureSub);
 		}
 
@@ -243,9 +243,9 @@ Module.register("onecall", {
 			var visibilityUnit = document.createElement("span");
 			visibilityUnit.className = "subs";
 			if (this.config.units === "metric" || this.config.units === "default") {
-				visibilityUnit.innerHTML = " km ";
+				visibilityUnit.innerHTML = "km ";
 			} else if (this.config.units === "imperial") {
-				visibilityUnit.innerHTML = " mi ";
+				visibilityUnit.innerHTML = "mi ";
 			}
 			small.appendChild(visibilityUnit);
 		}
@@ -254,13 +254,13 @@ Module.register("onecall", {
 		if (this.config.showHumidity) {
 			var humidity = document.createElement("span");
 			if (this.humidity < 30) {
-				humidity.className = "lightblue";
+				humidity.className = "blue";
 			} else if (this.humidity > 50 && this.humidity < 80) {
-				humidity.className = "yellow";
+				humidity.className = "orange";
 			} else if (this.humidity > 80) {
-				humidity.className = "coral";
+				humidity.className = "orangered";
 			} else humidity.className = " ";
-			humidity.innerHTML = " <i class=\"wi wi-humidity skyblue\"></i>" + this.humidity + "%";
+			humidity.innerHTML = " <i class=\"wi wi-humidity blue\"></i>" + this.humidity + "%";
 			small.appendChild(humidity);
 		}
 
@@ -274,6 +274,7 @@ Module.register("onecall", {
 				var wrapper = document.createElement("div");
 				wrapper.innerHTML = "Please set the correct openweather <i>appId</i> in the config for module: " + this.name + ".";
 				wrapper.className = "dimmed light small";
+				this.sendNotification("SHOW_ALERT", {type: "notification", title: 'Eroare Onecall', message: 'Eroare la aducerea datelor meteo'});
 				return wrapper;
 			}
 		}
