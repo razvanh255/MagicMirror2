@@ -2,7 +2,7 @@ Module.register("phases", {
     defaults: {
         updateInterval: 60 * 60 * 1000,
         animationSpeed: config.animation,
-        moonPhasesNightOnly: true,
+        moonPhasesNightOnly: false,
         nightStart: 19,
         nightEnd: 6,
         width: "100",
