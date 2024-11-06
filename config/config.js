@@ -211,7 +211,7 @@ let config = {
 		{
 		    module: 'DHT22_',
 		    position: 'top_right',
-		    //disabled: true,
+		    disabled: false,
 		    config: {
 		      showData: false,
 		    }
