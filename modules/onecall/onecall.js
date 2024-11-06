@@ -1227,11 +1227,12 @@ Module.register("onecall", {
 			if (notification === "INDOOR_TEMPERATURE") {
 				this.indoorTemperature = this.roundValue(payload);
 				//this.updateDom(this.config.animationSpeed);
+    document.getElementById('indoorTemp').innerHTML = this.indoorTemperature;
 			} else this.indoorTemperature = "NA";
 
 			if (notification === "INDOOR_HUMIDITY") {
 				this.indoorHumidity = this.roundValue(payload);
-				//this.updateDom(this.config.
+				//this.updateDom(this.config.animationSpeed);
     document.getElementById('indoorHum').innerHTML = this.indoorHumidity;
 			} else this.indoorHumidity = "NA";
 		}
