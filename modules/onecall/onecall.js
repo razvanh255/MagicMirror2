@@ -1,4 +1,4 @@
-/* MagicMirror²
+ /* MagicMirror²
  * Module: Onecall OpenWeatherMap
  *
  * Redesigned by Răzvan Cristea
@@ -369,12 +369,12 @@ Module.register("onecall", {
 				large.appendChild(indoorIcon);
 
 				var indoorTemperature = document.createElement("span");
-				indoorTemperature.className = "medium bright";
+				indoorTemperature.className = "medium bright indoorTemp";
 				indoorTemperature.innerHTML = "&nbsp; <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel;
 				large.appendChild(indoorTemperature);
 
 				var indoorHumidity = document.createElement("span");
-				indoorHumidity.className = "medium bright";
+				indoorHumidity.className = "medium bright indoorHum";
 				indoorHumidity.innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity + "%";
 				large.appendChild(indoorHumidity);
 			}
@@ -1226,12 +1226,13 @@ Module.register("onecall", {
 		if (this.config.showIndoorTemp_Hum) {
 			if (notification === "INDOOR_TEMPERATURE") {
 				this.indoorTemperature = this.roundValue(payload);
-				this.updateDom(this.config.animationSpeed);
+				//this.updateDom(this.config.animationSpeed);
 			} else this.indoorTemperature = "NA";
 
 			if (notification === "INDOOR_HUMIDITY") {
 				this.indoorHumidity = this.roundValue(payload);
-				this.updateDom(this.config.animationSpeed);
+				//this.updateDom(this.config.
+    document.getElementById('indoorHum').innerHTML = this.indoorHumidity;
 			} else this.indoorHumidity = "NA";
 		}
 	},
