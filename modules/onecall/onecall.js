@@ -1,4 +1,4 @@
- /* MagicMirror²
+/* MagicMirror²
  * Module: Onecall OpenWeatherMap
  *
  * Redesigned by Răzvan Cristea
@@ -26,14 +26,14 @@ Module.register("onecall", {
 		},
 
 		// important settings
-		endpointType: "onecall",             // "onecall", "current", "hourly" or "daily"
-		oneLoader: false,                    // very important for just one API call
-		pollutionOneLoader: true,            // very important for Air Pollution API call
+		endpointType: "onecall",			// "onecall", "current", "hourly" or "daily"
+		oneLoader: false,					// very important for just one API call
+		pollutionOneLoader: true,			// very important for Air Pollution API call
 
 		// general settings
 		location: config.location,
 		units: config.units,
-		initialLoadDelay: 2000,              // 0 seconds delay
+		initialLoadDelay: 2000,				// 0 seconds delay
 		animationSpeed: config.animation,
 		timeFormat: config.timeFormat,
 		language: config.language,
@@ -43,44 +43,45 @@ Module.register("onecall", {
 		useLocationAsHeader: false,
 		tempClass: "xlarge",
 		tableClass: "small",
-		showRainAmount: true,                // snow show only in winter months
+		showRainAmount: true,				// snow show only in winter months
 		onlyTemp: false,
 		plusForecast: false,
 		hideTemp: false,
-		roundTemp: false,                    // error if is true
+		roundTemp: false,					// error if is true
 		addExtra: true,
 		showTopDescription: false,
 
 		// current settings
 		showWindDirection: true,
-		showWindDirectionAsArrow: false,     // not realy working
+		showWindDirectionAsArrow: true,		// not realy working
 		showIndoorTemp_Hum: false,
 		useBeaufort: false,
 		useKMPHwind: true,
 		showFeelsLike: true,
-		realFeelsLike: true,                 // show real not calculated
+		realFeelsLike: true,				// show real not calculated
+		showCurrentRainAmount: false,
 		showVisibility: true,
 		showHumidity: true,
 		showPressure: true,
-		showDew: true,                       // dew point
-		showUvi: true,                       // UV index
+		showDew: true,						// dew point
+		showUvi: true,						// UV index
 		showAlerts: true,
-		notificationAlert: true,             // "full" for detailed alert notification
-		defaultIcons: false,                 // with or without default icons
+		notificationAlert: true,			// "full" for detailed alert notification
+		defaultIcons: false,				// with or without default icons
 
 		// hourly & daily settings
-		flexDayForecast: true,               // show Flex Daily Forecast, set maxNumberOfDays to 3 or 6
-		flexHourForecast: false,             // show Flex Hourly Forecast, set maxNumberOfDays to 3 to 48
+		flexDayForecast: true,				// show Flex Daily Forecast, set maxNumberOfDays to 3 or 6
+		flexHourForecast: false,			// show Flex Hourly Forecast, set maxNumberOfDays to 3 to 48
 		maxNumberOfDays: 6,
 		maxNumberOfHours: 6,
 		fadeDaily: false,
 		fadeHourly: false,
-		fadePoint: 0.25,                     // Start on 1/4th of the list.
+		fadePoint: 0.25,					// Start on 1/4th of the list.
 		colored: true,
-		extraHourly: true,                  // snow extra hourly humidity, dew point, pressure, real feel and rain or snow,
-		extraDaily: false,                    // snow extra daily humidity, dew point, pressure, real feel and rain or snow,
-		daily: "dddd",                       // "ddd" for short day name or "dddd" for full day name
-		hourly: "HH.mm",                     // "HH [h]" for hourly forecast or "HH.mm" for hour and minutes
+		extraHourly: true,					// snow extra hourly humidity, dew point, pressure, real feel and rain or snow,
+		extraDaily: false,					// snow extra daily humidity, dew point, pressure, real feel and rain or snow,
+		daily: "dddd",						// "ddd" for short day name or "dddd" for full day name
+		hourly: "HH.mm",					// "HH [h]" for hourly forecast or "HH.mm" for hour and minutes
 
 		iconTable: {
 			"01d": "day-sunny",
@@ -178,7 +179,7 @@ Module.register("onecall", {
 		small.className = "normal medium currentweather";
 
 		var windIcon = document.createElement("span");
-		windIcon.className = "wi wi-strong-wind blue";
+		windIcon.className = "wi wi-strong-wind skyblue";
 		small.appendChild(windIcon);
 
 		if (this.config.showWindDirection) {
@@ -197,11 +198,11 @@ Module.register("onecall", {
 
 		var windSpeed = document.createElement("span");
 		if (this.windSpeed > 50 && this.windSpeed < 75) {
-			windSpeed.className = "blue";
+			windSpeed.className = "skyblue";
 		} else if (this.windSpeed > 75 && this.windSpeed < 100) {
-			windSpeed.className = "orange";
+			windSpeed.className = "yellow";
 		} else if (this.windSpeed > 100) {
-			windSpeed.className = "orangered";
+			windSpeed.className = "orange";
 		} else windSpeed.className = " ";
 		windSpeed.innerHTML = " " + this.windSpeed;
 		small.appendChild(windSpeed);
@@ -220,7 +221,7 @@ Module.register("onecall", {
 			var pressure = document.createElement("span");
 			var atpressure = Math.round(this.pressure * 750.062 / 1000);
 				if (atpressure < 745) {
-					pressure.className = "pressure blue";
+					pressure.className = "pressure skyblue";
 				} else if (atpressure > 775) {
 					pressure.className = "pressure orange";
 				} else pressure.className = "pressure green";
@@ -254,13 +255,13 @@ Module.register("onecall", {
 		if (this.config.showHumidity) {
 			var humidity = document.createElement("span");
 			if (this.humidity < 30) {
-				humidity.className = "blue";
+				humidity.className = "skyblue";
 			} else if (this.humidity > 50 && this.humidity < 80) {
-				humidity.className = "orange";
+				humidity.className = "yellow";
 			} else if (this.humidity > 80) {
-				humidity.className = "orangered";
+				humidity.className = "orange";
 			} else humidity.className = " ";
-			humidity.innerHTML = " <i class=\"wi wi-humidity blue\"></i>" + this.humidity + "%";
+			humidity.innerHTML = " <i class=\"wi wi-humidity skyblue\"></i>" + this.humidity + "%";
 			small.appendChild(humidity);
 		}
 
@@ -365,7 +366,8 @@ Module.register("onecall", {
 				large.appendChild(indoorSpace);
 
 				var indoorIcon = document.createElement("span");
-				indoorIcon.className = "medium fa fa-home gold";
+				indoorIcon.className = "medium";
+				indoorIcon.innerHTML = "<i class=\"fa fa-home gold\"></i> " + this.translate("HOME");
 				large.appendChild(indoorIcon);
 
 				var indoorTemperature = document.createElement("span");
@@ -462,7 +464,7 @@ Module.register("onecall", {
 				}
 
 				// precipitation
-				if (this.config.showRainAmount) {
+				if (this.config.showCurrentRainAmount) {
 					var precipitation = document.createElement("div");
 					precipitation.className = "prep xmedium";
 					if (this.precipitation > 0) {
@@ -531,7 +533,7 @@ Module.register("onecall", {
 					item.appendChild(dayCell);
 
 					var icon = document.createElement("div");
-					icon.className = "wi weathericon wi-" + forecast.icon;
+					icon.className = "wi forecasticon wi-" + forecast.icon;
 					if (this.config.defaultIcons) {
 						icon.style.transform = "scale(2)";
 						icon.style.padding = "17px";
@@ -1226,15 +1228,15 @@ Module.register("onecall", {
 		if (this.config.showIndoorTemp_Hum) {
 			if (notification === "INDOOR_TEMPERATURE") {
 				this.indoorTemperature = this.roundValue(payload);
-				//this.updateDom(this.config.animationSpeed);
-			    document.querySelector('.indoorTemp').innerHTML = this.indoorTemperature;
-			} else this.indoorTemperature = "NA";
+			//	this.updateDom(this.config.animationSpeed);
+				document.querySelector('.indoorTemp').innerHTML = this.indoorTemperature;
+			} else this.indoorTemperature = "*24";
 
 			if (notification === "INDOOR_HUMIDITY") {
 				this.indoorHumidity = this.roundValue(payload);
-				//this.updateDom(this.config.animationSpeed);
-			    document.querySelector('.indoorHum').innerHTML = this.indoorHumidity;
-			} else this.indoorHumidity = "NA";
+			//	this.updateDom(this.config.animationSpeed);
+				document.querySelector('.indoorHum').innerHTML = this.indoorHumidity;
+			} else this.indoorHumidity = "*46";
 		}
 	},
 
