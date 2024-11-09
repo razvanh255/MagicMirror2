@@ -2,16 +2,11 @@
 
 [![Platform](https://img.shields.io/badge/platform-MagicMirror2-informational)](https://github.com/cristearazvanh/MagicMirror2)
 [![CC-0 license](https://img.shields.io/badge/License-CC--4.0-blue.svg)](https://creativecommons.org/licenses/by-nd/4.0)
-[![GitHub branches](https://badgen.net/github/branches/cristearazvanh/swatch)](https://github.com/cristearazvanh/swatch)
-[![GitHub forks](https://badgen.net/github/forks/cristearazvanh/swatch)](https://github.com/cristearazvanh/swatch)
-[![GitHub stars](https://badgen.net/github/stars/cristearazvanh/swatch)](https://github.com/cristearazvanh/swatch)
 
-https://github.com/cristearazvanh/swatch
 
 Simple Swatch .beat Internet Time MagicMirror2 module
-<br>This module is no longer maintained, will not have any improvements or bug fixes.
 
-<img src=https://github.com/cristearazvanh/swatch.beat/raw/master/preview.png>
+<img src=https://github.com/razvanh255/MagicMirror/blob/master/modules/swatch/preview.png>
 
 Instead of hours and minutes, the mean solar day is divided into 1000 parts called ".beats". Each .beat is equal to one decimal minute in the French Revolutionary decimal time system and lasts 1 minute and 26.4 seconds (86.4 seconds) in standard time. Times are notated as a 3-digit number out of 1000 after midnight. So, for example @248 would indicate a time 248 .beats after midnight representing ​248⁄1000 of a day, just over 5 hours and 57 minutes.
 
@@ -26,5 +21,5 @@ There are no time zones in Swatch Internet Time; instead, the new time scale of 
 	}
 
 Designed by Răzvan Cristea
-https://github.com/cristearazvanh
+https://github.com/razvanh255
 Creative Commons BY-NC-SA 4.0, Romania.
