@@ -261,5 +261,5 @@ Weather compliments to put in your config.js
 	}
 
 Redesigned by Răzvan Cristea
-https://github.com/cristearazvanh
+https://github.com/razvanh255
 Creative Commons BY-NC-SA 4.0, Romania.
