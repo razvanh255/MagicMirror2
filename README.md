@@ -27,9 +27,3 @@ For the full documentation including **[installation instructions](https://docs.
   - Technical discussions: https://forum.magicmirror.builders/category/11/core-system
 - Discord: [https://discord.gg/J5BAtvx](https://discord.gg/J5BAtvx)
 
-<br><br><br>
-
-
-<p style="text-align: center">
-	<a href="https://forum.magicmirror.builders/topic/728/magicmirror-is-voted-number-1-in-the-magpi-top-50"><img src="https://magicmirror.builders/img/magpi-best-watermark-custom.png" width="150" alt="MagPi Top 50"></a>
-</p>
