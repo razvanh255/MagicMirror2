@@ -6,6 +6,7 @@
 	"DAYAFTERTOMORROW": "In 2 days",
 
 	"NOW": "Now",
+	"HOME": "Inside",
 
 	"FEELS": "Feels like: {DEGREE} ",
 	"Real feel: ": "Real feel: ",
@@ -40,5 +41,15 @@
 	"NW": "NW",
 	"NNW": "NNW",
 	"Next hours": "Forecast in next hours ",
-	"Next days": "Forecast in next days "
+	"Next days": "Forecast in next days ",
+
+	"Air_quality": "Air quality in ",
+    
+    "Good": "Good",
+    "Fair": "Fair",
+    "Moderate": "Moderate",
+    "Poor": "Poor",
+    "Unhealty": "Unhealty",
+    "Index": "AQ Index",
+    "Update": "Last update "
 }

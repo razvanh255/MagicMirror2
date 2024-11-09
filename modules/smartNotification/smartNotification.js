@@ -1,5 +1,7 @@
 Module.register("smartNotification", {
     defaults: {
+        showStatus: true,
+        dynamicBackground: true,
         dimInterval: 10,
         dimLevel: 50,
         dimStart: "23:50",
@@ -35,6 +37,7 @@ Module.register("smartNotification", {
         this.scheduleNotifications();
     //  this.scheduleHourlyNotifications();
         this.checkTimeNotification();
+        this.dynamicBackground();
         this.scheduleBrightness();
         this.scheduleHideModules();
         this.scheduleShowModules();
@@ -154,6 +157,34 @@ Module.register("smartNotification", {
         }
     },
 
+    dynamicBackground: function() {
+        if (this.config.dynamicBackground) {
+            setTimeout(() => {
+                var below = document.querySelector('.below');
+                var date = new Date();
+                var hour = date.getHours();
+                
+                var periods = [
+                    { start: 0, end: 6, image: "css/lcars/lcars05.jpg" },
+                    { start: 6, end: 7, image: "css/lcars/lcars04.jpg" },
+                    { start: 7, end: 12, image: "css/lcars/lcars01.jpg" },
+                    { start: 12, end: 13, image: "css/lcars/lcars03.jpg" },
+                    { start: 13, end: 23, image: "css/lcars/lcars01.jpg" },
+                    { start: 23, end: 24, image: "css/lcars/lcars02.jpg" }
+                ];
+
+                for (var i = 0; i < periods.length; i++) {
+                    var period = periods[i];
+                    if (hour >= period.start && hour < period.end) {
+                        below.style.backgroundImage = "url('" + period.image + "')";
+                        break;
+                    }
+                }
+
+            }, 1000);
+        }
+    },
+
     scheduleBrightness: function () {
         this.scheduleBrightnessChange(this.config.dimStart, this.config.dimLevel);
         this.scheduleBrightnessChange(this.config.dimEnd, 100); // 100% pentru restaurare
@@ -239,6 +270,7 @@ Module.register("smartNotification", {
 
     adjustZoom: function () {
         let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
         let zoomLevel = 1;
 
         if (screenWidth >= 1280) {
@@ -262,6 +294,9 @@ Module.register("smartNotification", {
     },
 
     getDom: function () {
+        if (!this.config.showStatus) {
+            document.querySelector(".smartNotification").style.visibility = "hidden";
+        }
         const wrapper = document.createElement("div");
         
         wrapper.innerHTML = this.isOnline 

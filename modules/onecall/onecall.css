@@ -55,8 +55,12 @@
 
 .onecall .current-weather .weathericon,
 .onecall .currentweather .weathericon {
-  height: 70px;
+  height: 70%;
   float: left;
+}
+
+.onecall .weatherforecast .forecasticon {
+  transform: translateX(-25px) scale(0.75) !important;
 }
 
 .onecall .currentweather .deg {
@@ -77,12 +81,12 @@
 
 .currentweather .wi-day-sunny {
   content: url("icons/clear.png");
-  transform: translate(0, 15px) scale(1.4);
+  transform: translate(0) scale(1.1);
 }
 
 .compliments .wi-day-sunny {
   content: url("icons/clear.png");
-  transform: translate(0, 25px) scale(1);
+  transform: translate(0, 25px) scale(1.1);
 }
 
 .compliments .wi-day-cloudy,
@@ -127,7 +131,7 @@
 
 .currentweather .wi-night-clear {
   content: url("icons/nt_clear.png");
-  transform: translate(0, 15px) scale(1.6);
+  transform: translate(0) scale(1.2);
 }
 
 .compliments .wi-night-clear {
@@ -353,7 +357,7 @@
 
 .onecall .weatherforecast .wi-night-clear {
   transform: translateX(-2px);
-  font-size: 120%;
+  font-size: 150%;
   color: silver;
 }
 
@@ -455,6 +459,7 @@
 
 .onecall .medium {
   font-size: 1.6rem;
+  line-height: 1.6;
 }
 
 .onecall .slarge {
@@ -468,7 +473,7 @@
 }
 
 .onecall .details {
-  line-height: 1.8rem;
+  line-height: 2.2rem;
 }
 
 .onecall .xlarge {

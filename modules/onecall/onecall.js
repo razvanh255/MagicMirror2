@@ -29,6 +29,7 @@ Module.register("onecall", {
 		endpointType: "onecall",			// "onecall", "current", "hourly" or "daily"
 		oneLoader: false,					// very important for just one API call
 		pollutionOneLoader: true,			// very important for Air Pollution API call
+		processAir: true,
 
 		// general settings
 		location: config.location,
@@ -83,6 +84,12 @@ Module.register("onecall", {
 		daily: "dddd",						// "ddd" for short day name or "dddd" for full day name
 		hourly: "HH.mm",					// "HH [h]" for hourly forecast or "HH.mm" for hour and minutes
 
+		// Air pollution
+		calculateAqi: true,          // calculate AQI from pollutants concentration (not fully tested)
+		showAqiTime: true,           // show last update time
+		showAqiData: true,           // show AQI calculation pollutants, hidding last update
+		showPollution: false,        // snow list of all pollutants, hidding AQI calculation of all pollutants
+
 		iconTable: {
 			"01d": "day-sunny",
 			"02d": "day-cloudy",
@@ -114,7 +121,7 @@ Module.register("onecall", {
 
 	// Define required scripts.
 	getStyles: function () {
-		return ["onecall.css"
+		return ["onecall.css", "pollution.css"
 				//	, "fontawesome.css", "weather-icons-wind.css"
 				];
 	},
@@ -163,6 +170,19 @@ Module.register("onecall", {
 		this.indoorTemperature = null;
 		this.indoorHumidity = null;
 		this.loaded = false;
+
+		this.aqi = null;
+		this.aqi_t = null;
+		this.aqi_i = null;
+		this.aqi_s = null;
+		this.c_co = null;
+		this.c_no = null;
+		this.c_no2 = null;
+		this.c_o3 = null;
+		this.c_so2 = null;
+		this.c_pm25 = null;
+		this.c_pm10 = null;
+		this.c_nh3 = null;
 
 		if (this.config.pollutionOneLoader) {
 			var self = this;
@@ -357,7 +377,7 @@ Module.register("onecall", {
 
 				var temperature = document.createElement("span");
 				temperature.className = "bright light " + this.config.tempClass;
-				temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "&deg;<span class=\"deg\">" + degreeLabel + "</span>";
+				temperature.innerHTML = " " + this.temperature.replace(".", this.config.decimalSymbol) + "<sup>&deg;" + degreeLabel + "</sup";
 				tempwrapper.appendChild(temperature);
 			}
 
@@ -466,7 +486,7 @@ Module.register("onecall", {
 				// precipitation
 				if (this.config.showCurrentRainAmount) {
 					var precipitation = document.createElement("div");
-					precipitation.className = "prep xmedium";
+					precipitation.className = "prep medium";
 					if (this.precipitation > 0) {
 						if(config.units === "imperial") {
 							precipitation.innerHTML = this.translate("PRECIP") + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-umbrella lime\"></i>";
@@ -492,6 +512,120 @@ Module.register("onecall", {
 					description.innerHTML = "<i class=\"fas fa-wind\"></i> " + this.translate("ALERTS") + this.start + "-" + this.end;
 				} 
 				wrapper.appendChild(description);
+			}
+		}
+
+		// Air quality
+		if (this.config.processAir) {
+
+			var aqi = document.createElement("div");
+			aqi.className = "normal medium aqi bright";
+			var aqi_q = null; var aqi_c = null; var aqi_b = null;
+			if (this.config.calculateAqi) {
+				if (this.aqi_i <= 25) {
+					aqi_q = this.translate("Good");
+					aqi_c = "lime";
+				} else if (this.aqi_i > 25 && this.aqi_i <= 50) {
+					aqi_q = this.translate("Fair");
+					aqi_c = "yellow";
+				} else if (this.aqi_i > 50 && this.aqi_i <= 75) {
+					aqi_q = this.translate("Moderate");
+					aqi_c = "orange";
+				} else if (this.aqi_i > 75 && this.aqi_i <= 100) {
+					aqi_q = this.translate("Poor");
+					aqi_c = "orangered";
+				} else if (this.aqi_i > 100) {
+					aqi_q = this.translate("Unhealty");
+					aqi_c = "red";
+				}
+
+				aqi.innerHTML = this.translate("Index") + ": <span class=" + aqi_c + ">" + aqi_q + "</span>"; //" (" + this.aqi_i + ")</span>";
+				
+			} else {
+				if (this.aqi === 1) { 
+					aqi_q = this.translate("Good");
+					aqi_c = "lime";
+				} else if (this.aqi === 2) { 
+					aqi_q = this.translate("Fair");
+					aqi_c = "yellow";
+				} else if (this.aqi === 3) { 
+					aqi_q = this.translate("Moderate");
+					aqi_c = "orange";
+				} else if (this.aqi === 4) { 
+					aqi_q = this.translate("Poor");
+					aqi_c = "orangered";
+				} else if (this.aqi === 5) { 
+					aqi_q = this.translate("Unhealty");
+					aqi_c = "red";
+				}
+				aqi.innerHTML = this.translate("Index") + ": <span class=" + aqi_c + ">" + aqi_q + "</span>";
+
+			}
+			
+			wrapper.appendChild(aqi);
+				
+			if (this.config.showAqiData && !this.config.showPollution) {
+				var aqi_d = document.createElement("div");
+				aqi_d.className = "normal small aqi_d";
+				aqi_d.innerHTML = "PM<sub>10</sub> <span class=bright>" + Math.round(this.c_pm10/1.8)
+						+ "</span>; PM<sub>2.5</sub> <span class=bright>" + Math.round(this.c_pm25/1.1)
+						+ "</span>; O<sub>3</sub> <span class=bright>" + Math.round(this.c_o3/2.4*1.7)
+						+ "</span>; NO<sub>2</sub> <span class=bright>" + Math.round(this.c_no2/4)
+						+ "</span>; SO<sub>2</sub> <span class=bright>" + Math.round(this.c_so2/5*1.3)
+						+ "</span>";
+				wrapper.appendChild(aqi_d);
+
+			} else if (this.config.showAqiTime) {
+				var aqi_t = document.createElement("div");
+				aqi_t.className = "shade small aqi_t";
+				aqi_t.innerHTML = this.translate("Update") + this.aqi_t + ", " + this.config.location;
+				wrapper.appendChild(aqi_t);
+			}
+				
+			if (this.config.showPollution) {
+				this.config.showAqiData = false;
+				var spacer = document.createElement("br");
+				wrapper.appendChild(spacer);
+
+				var c_pm10 = document.createElement("div");
+				c_pm10.className = "normal small c_pm10";
+				c_pm10.innerHTML = "10μm particle (PM<sub>10</sub>) <span class=bright>" + this.c_pm10.toFixed(2).replace(".", this.config.decimalSymbol) + " µg/m³</span>";
+				wrapper.appendChild(c_pm10);
+
+				var c_pm25 = document.createElement("div");
+				c_pm25.className = "normal small c_pm25";
+				c_pm25.innerHTML = "2.5μm particle (PM<sub>2.5</sub>) <span class=bright>" + this.c_pm25.toFixed(2).replace(".", this.config.decimalSymbol) + " µg/m³</span>";
+				wrapper.appendChild(c_pm25);
+					
+				var c_o3 = document.createElement("div");
+				c_o3.className = "normal small c_o3";
+				c_o3.innerHTML = "Ozone (O<sub>3</sub>) <span class=bright>" + this.c_o3.toFixed(2).replace(".", this.config.decimalSymbol) + " µg/m³</span>";
+				wrapper.appendChild(c_o3);
+
+				var c_no2 = document.createElement("div");
+				c_no2.className = "normal small c_no2";
+				c_no2.innerHTML = "Nitrogen dioxide (NO<sub>2</sub>) <span class=bright>" + this.c_no2.toFixed(2).replace(".", this.config.decimalSymbol) + " µg/m³</span>";
+				wrapper.appendChild(c_no2);
+
+				var c_no = document.createElement("div");
+				c_no.className = "normal small c_no";
+				c_no.innerHTML = "Nitrogen monoxide (NO) <span class=bright>" + this.c_no.toFixed(2).replace(".", this.config.decimalSymbol) + " µg/m³</span>";
+				wrapper.appendChild(c_no);
+
+				var c_so2 = document.createElement("div");
+				c_so2.className = "normal small c_so2";
+				c_so2.innerHTML = "Sulphur dioxide (SO<sub>2</sub>) <span class=bright>" + this.c_so2.toFixed(2).replace(".", this.config.decimalSymbol) + " µg/m³</span>";
+				wrapper.appendChild(c_so2);
+
+				var c_co = document.createElement("div");
+				c_co.className = "normal small c_co";
+				c_co.innerHTML = "Carbon monoxide (CO) <span class=bright>" + (this.c_co/1000).toFixed(2).replace(".", this.config.decimalSymbol) + " mg/m³</span>";
+				wrapper.appendChild(c_co);
+
+				var c_nh3 = document.createElement("div");
+				c_nh3.className = "normal small c_nh3";
+				c_nh3.innerHTML = "Ammonia (NH<sub>3</sub>) <span class=bright>" + this.c_nh3.toFixed(2).replace(".", this.config.decimalSymbol) + " µg/m³</span>";
+				wrapper.appendChild(c_nh3);
 			}
 		}
 
@@ -579,7 +713,7 @@ Module.register("onecall", {
 						var rainCell = document.createElement("div");
 						rainCell.className = "xmedium bright";
 						if (!forecast.snow && !forecast.rain) {
-							rainCell.className = "small normal";
+							rainCell.className = "xmedium normal";
 							rainCell.innerHTML = this.translate("No rain") + "&nbsp; <i class=\"fa fa-tint-slash skyblue small\"></i>";
 						} else if (forecast.snow) {
 							if (config.units !== "imperial") {
@@ -1187,6 +1321,9 @@ Module.register("onecall", {
 			if (this.readyState === 4) {
 				if (this.status === 200) {
 					self.sendNotification("AIR_RESPONSE", JSON.parse(this.response));
+					if (self.config.processAir) {
+						self.processAir(JSON.parse(this.response));
+					}
 				//	Log.info("AIR_RESPONSE", JSON.parse(this.response));
 				} else if (this.status === 401) {
 					return Log.error("Air Pollution: appId not available!");
@@ -1198,6 +1335,76 @@ Module.register("onecall", {
 			}
 		};
 		airRequest.send();
+	},
+
+	/* processAir(data)
+	 * Uses the received data to set the various values.
+	 *
+	 * argument data object - air quality information received form openweathermap.org.
+	 */
+	processAir: function (data) {
+		if (!data || !data.list || typeof data.list[0] === "undefined") {
+			return Log.error("NO AIR POLLUTION DATA");
+		}
+		
+		if (data.list[0].hasOwnProperty("main")) {
+			this.aqi = data.list[0].main.aqi;
+		}
+
+		if (data.list[0].hasOwnProperty("dt")) {
+			this.aqi_t = moment(data.list[0].dt, "X").format("HH:mm");
+		}
+
+		if (data.list[0].hasOwnProperty("components")) {
+			var aqi_p = data.list[0].components;
+			this.c_co = aqi_p.co;
+			this.c_no = aqi_p.no;
+			this.c_no2 = aqi_p.no2;
+			this.c_o3 = aqi_p.o3;
+			this.c_so2 = aqi_p.so2;
+			this.c_pm25 = aqi_p.pm2_5;
+			this.c_pm10 = aqi_p.pm10;
+			this.c_nh3 = aqi_p.nh3;
+		}
+
+		if (this.config.calculateAqi) {
+			this.aqi_i = Math.max(
+				Math.round(this.c_no2/4*1.3),   // mandatory
+				Math.round(this.c_no/4)*1.3,    // optional
+				Math.round(this.c_pm10/1.8),    // mandatory 
+				Math.round(this.c_o3/2.4*1.7),  // mandatory
+				Math.round(this.c_pm25/1.1),    // optional
+				Math.round(this.c_so2/5),       // optional
+				Math.round(this.c_nh3/16*0.9),  // optional
+				Math.round(this.c_co/2000*0.9)  // optional
+			).toFixed(0);
+
+			if (this.aqi_i <= 25) {
+				this.aqi_s = 1;
+			} else if (this.aqi_i > 25 && this.aqi_i <= 50) {
+				this.aqi_s = 2;
+			} else if (this.aqi_i > 50 && this.aqi_i <= 75) {
+				this.aqi_s = 3;
+			} else if (this.aqi_i > 75 && this.aqi_i <= 100) {
+				this.aqi_s = 4;
+			} else if (this.aqi_i > 100) {
+				this.aqi_s = 5;
+			}
+
+			this.sendNotification("AIRQUALITY_INDEX", { index: "AQI_" + this.aqi_s });
+			Log.log("AIRQUALITY_INDEX", { index: "AQI_" + this.aqi_s + " (" + this.aqi_i + ")" });
+			if ((this.aqi_i > 100) && (this.config.notificationAlert)) {
+				this.sendNotification("DAY_NOTIFICATION", {imageFA: "leaf red", title: this.translate("Index"), message: "Aerul este " + this.translate("Unhealty") + " (" + this.aqi_i + ")", timer: 10000000});
+			}
+		} else {
+			this.sendNotification("AIRQUALITY_INDEX", { index: "AQI_" + this.aqi });
+			Log.log("AIRQUALITY_INDEX", { index: "AQI_" + this.aqi });
+			if ((this.aqi > 4) && (this.config.notificationAlert)) {
+				this.sendNotification("DAY_NOTIFICATION", {imageFA: "leaf red", title: this.translate("Index"), message: "Aerul este " + this.translate("Unhealty") + " (" + this.aqi + ")", timer: 10000000});
+			}
+		}
+
+		this.DomUpdate(this.config.initialLoadDelay)
 	},
 
 	// Override notification handler.
