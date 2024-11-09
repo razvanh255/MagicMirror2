@@ -1,6 +1,6 @@
 # MMM-DHT22 Module for MagicMirror
 
-Very simple to install and the only module that works the first time without problems
+Very simple to install and the only module that works from the first time without problems
 
 | Status  | Version | Date | Maintained? |MagicMirror² Version |
 | ------------- | ------------- | ------------- | ------------- |------------- |
