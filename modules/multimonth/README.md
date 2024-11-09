@@ -9,7 +9,7 @@
 ```js
 
 {
-  module: 'MMM-Multimonth',
+  module: 'multimonth',
     position: 'top_left', // can be any of the postions
     config: { // Optional - will default to 3 months, with one previous and one next, vertical orientation.
     }
@@ -30,7 +30,7 @@
 | headerType             | 'short' | How do you want the days displayed? In US - 'short' = "Sun, Mon, Tue" In US - 'narrow' = "S, M, T" |
 | otherMonths            | false   | Display the previous and next month dimmed in the month grid. |
 | eventsOn               | true    | Turn on and off Event monitoring                             |
-| calNames               | []      | List of calendar names to trigger underline. Empty will do all of them. |
+| calNames               | []      | List of calendar names to trigger underline. Empty will do all of them. calNames is an array, please specify as such `["Main", "Sportsball", "Utility"]` case is IMPORTANT |
 | bigCalendar            | false   | Enable alternate big calendar mode, See below                |
 | instanceID             |         | If you'd like to have changes per instance, use a string here and specify in CSS. |
 | startWeek              | 0       | Starting day of your week                                    |
@@ -40,16 +40,14 @@
 
 for the last three items: 0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday.
 
-Remember the format for options:
 
-`option: value,` Example: `startMonth: -1,`
 
 Important: calNames is an array, please specify as such `["Main", "Sportsball", "Utility"]` case is IMPORTANT.
 
 instanceID: You can specify in custom.css different css for each instance. For example, if you add `instanceID: "test",` to your code, you can overide that instance with:
 
 ```css
-.MMM-Multimonth .month-header.test {
+.multimonth .month-header.test {
   background-color: blue;
   color: var(--color-header);
   font-size: var(--font-size-small);
@@ -78,96 +76,22 @@ Suggested settings at minimum:
 		},
 ```
 
-## New Features: 
-
-### Event Colors: 
-
-The module now can use the colors from the calendar module, default is the system color set (white)
-
 ### Event Symbols: 
 
 The module now can use the symbols from the calendar module in big calendar mode. 
 
-Example (uses public calendar from the University of Washington): 
+Example (uses public calendar): 
 
 ``` js
 {
-	url: "https://gohuskies.com/calendar.ashx/calendar.ics",
-	name: "Huskies",
-	symbol: "paw",
+	url: "https://calendar.google.com/calendar/ical/ro.romanian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+	name: "Sarbatori",
+	symbol: "calendar",
 	color: "#4B2E83",
 },
 ```
 
 
-
-### Big Calendar Mode:
-
-I wanted a big calendar for the current month, and the solutions out there didn't do what I wanted, so here we are. 
-
-Big calendar mode will change two things in code. 
-
-The Week Number (if used) will become part of the first day of the week's spot. 
-
-Events will be summarized into a count and a symbol, and display below each day of the month. 
-
-To keep the CSS slim, I ***do not*** format anything differently, and it ***will*** break the constraints of the mini mode. Don't use if you're inexperienced in CSS. You will have to design your display yourself. If you have any questions, ask in the magic mirror forums. Myself or any of the CSS wizards will be happy to help you. 
-
-
-
-## Updating from prior to 08 Jun 2024:
-
-CSS is changed - please check all customizations. **Old Elements, values, etc. have been deleted**.
-
-The following CSS code is all you need in `custom.css` if all you're changing is the colors and/or background edge rounding:
-
-(Key changes here: "current" has been changed to "today", "background-week, color-week have been removed as redundant") 
-
-```css
-/* Defaults are shown */
-.MMM-Multimonth .settings {
-  --background-header: rgb(0, 128, 0);               /* for the month and year line, use green background */ 
-  --background-dow: var(--color-background);         /* For the days of the week, use global background */ 
-  --background-dowBlank: rgba(255, 255, 255, 0);     /* For the blank square if you use Week numbers */  
-  --background-weekno: #808080;                      /* for the week number, use a grey background */ 
-  --background-event: var(--color-background);		 /* Background for events, used in big mode only */
-    
-  --background-dimmed: var(--color-background);      /* For dimmed (previous/next month in current grid), use the global background color */
-  --background-weekday: var(--color-background);     /* For normal days, use global background */ 
-  --background-weekend: cornflowerblue;              /* For the days defined as your weekend, change the background to cornflowerblue */
-  --background-today: Yellow;                        /* for the current day, change the background to yellow */ 
-
-  --color-header: var(--color-text-bright);         /* for the header lines, use the global bright text color */ 
-  --color-dow: var(--color-text);                   /* for the days of the week header, use the global text color */
-  --color-dowBlank: rgba(255, 255, 255, 0);			/* For the blank square if you use Week numbers */ 
-  --color-weekno: var(--color-text);                /* for the week numbers, use the global bright text color */
-
-  --color-dimmed: var(--color-text-dimmed);         /* For dimmed (previous/next month in current grid), use the global dimmed text color */
-  --color-weekday: var(--color-text);               /* For normal days, use global normal text */ 
-  --color-weekend: var(--color-background);         /* For the days defined as your weekend, change the text to the background color */
-  --color-today: var(--color-background);           /* for the current day, change the text to the background color */ 
-
-  --back-rounding: 8px;                             /* Set the radius of the background rounded edges. See documentation for border-radius elsewhere */ 
-  --alignment: center;                              /* Adjust the text alignment */ 
-  --fontsize: var(--font-size-xsmall);              /* Set font size */
-  --smallEventMarker: 3px;  						/* Event Marker size in pixels */
-}
-
-```
-
-Notes on the colors above: You can use any colors you'd like. https://www.w3schools.com/cssref/css_colors.php is a list of accepted color names, or if you wanna make your own, https://www.w3schools.com/cssref/css_colors_legal.php. The above list is intended to be a sample, so I use different ways of doing legal colors.  the "var" statements refer back to the master color list in Magic Mirror. You'll find a full list in main.css. 
-
-
-
-
-| Screenshot                                                   | How to get                                                   |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![screenshot](vert-noweek-norep.png?raw=true "Screenshot (vertical mode, no week numbers, single weekday line)") | monthsVertical: true, <br> repeatWeekdaysVertical: false, <br> weekNumbers: false, |
-| ![screenshot](vert-noweek-rep.png?raw=true "Screenshot (vertical mode, no week numbers, repeat weekday line for every month)") | monthsVertical: true, <br> repeatWeekdaysVertical: true, <br> weekNumbers: false, |
-| ![screenshot](vert-week-norep.png?raw=true "Screenshot (vertical mode, no week numbers, single weekday line)") | monthsVertical: true, <br> repeatWeekdaysVertical: false, <br> weekNumbers: true, |
-| ![screenshot](vert-week-rep.png?raw=true "Screenshot (vertical mode, no week numbers, repeat weekday line for every month)") | monthsVertical: true, <br> repeatWeekdaysVertical: true, <br> weekNumbers: true, |
-| ![screenshot](horz-noweeknum.png?raw=true "Screenshot (horizontal mode)") | monthsVertical: false, <br> weekNumbers: false,              |
-| ![screenshot](horz-week.png?raw=true "Screenshot (horizontal mode)") | monthsVertical: false, <br> weekNumbers: true,               |
 
 Many thanks to kirash for the inspiration with the monthly_calendar module, sdetweil and lavolp3 for the help in coding and CSS work. Without your help, this would just be a pipe dream.
 
