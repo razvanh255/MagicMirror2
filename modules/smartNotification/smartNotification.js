@@ -6,7 +6,7 @@ Module.register("smartNotification", {
         dimLevel: 50,
         dimStart: "23:50",
         dimEnd: "05:50",
-        rotation: 0,
+        rotation: -90,
         sharpMode: true,
         hideModulesTime: "00:00",
         showModulesTime: "00:00",
@@ -43,7 +43,7 @@ Module.register("smartNotification", {
         this.scheduleHideModules();
         this.scheduleShowModules();
         this.adjustZoom();
-        //this.rotatePage();
+    //  this.rotatePage();
         this.checkOnlineStatus();
         window.addEventListener("resize", this.adjustZoom.bind(this));
         setTimeout(function() {
@@ -194,7 +194,7 @@ Module.register("smartNotification", {
                     }
                 }
 
-            }, 5000); // Verifică la fiecare 5 secunde
+            }, 5000);
         }
     },
 
@@ -300,10 +300,60 @@ Module.register("smartNotification", {
     },
 
     rotatePage: function () {
-        document.body.style.transform = "rotate(" + config.rotation + "deg)";
-        document.body.style.transformOrigin = "center center";
-        document.body.style.width = "100vh";
-        document.body.style.height = "100vw";
+        var land = window.matchMedia("screen and (orientation: landscape)");
+        var port = window.matchMedia("screen and (orientation: portrait)");
+
+        setInterval(() => {
+            if (land.matches) {
+                document.body.style.transform = "rotate(" + config.rotation + "deg)";
+                document.body.style.transformOrigin = "top left";
+            //    document.body.style.height = "100vw";
+            //    document.body.style.height = "100vw";
+            //    document.body.style.top = "100%";
+            //    document.body.style.left = "100%";
+            } else if (port.matches) {
+                document.body.style.transform = "rotate(0deg)";
+                document.body.style.transformOrigin = "top left";
+            //    document.body.style.top = "0";
+            //    document.body.style.left = "0";
+            //    document.body.style.width = "100vw";
+            //    document.body.style.height = "100vh";
+            } else if (this.config.rotation === 90 && land.matches) {
+                document.body.style.transform = "rotate(" + config.rotation + "deg)";
+                document.body.style.transformOrigin = "botom right";
+                document.body.style.bottom = "100%";
+                document.body.style.right = "0";
+                document.body.style.width = "100vh";
+                document.body.style.height = "100vw";
+            } else if (this.config.rotation === 90 && port.matches) {
+                document.body.style.transform = "rotate(0deg)";
+                document.body.style.transformOrigin = "bottom right";
+                document.body.style.bottom = "100%";
+                document.body.style.right = "100%";
+                document.body.style.width = "100vw";
+                document.body.style.height = "100vh";
+            }
+        }, 1000);
+/*
+        if (this.config.rotate === -90 && land.matches) {
+            html.forEach(function(element) {return element.style.transform = "rotate(-90deg)", element.style.transformOrigin = "top left", 
+            element.style.top = "100%", element.style.left = "0"});
+            body.forEach(function(element) {return element.style.height = "100vw", element.style.width = "100vh"});
+        } else if (this.config.rotate === 90 && land.matches) {
+            html.forEach(function(element) {return element.style.transform = "rotate(90deg)", element.style.transformOrigin = "bottom right", 
+            element.style.bottom = "100%", 
+            element.style.right = "0"});
+            body.forEach(function(element) {return element.style.height = "100vw", element.style.width = "100vh"});
+        } else if (this.config.rotate === -90 && port.matches) {
+            html.forEach(function(element) {return element.style.transform = "rotate(0deg)", element.style.transformOrigin = "top left", 
+            element.style.top = "0", element.style.left = "0"});
+            body.forEach(function(element) {return element.style.height = "100vh", element.style.width = "100vw"});
+        } else if (this.config.rotate === 90 && port.matches) {
+            html.forEach(function(element) {return element.style.transform = "rotate(0deg)", element.style.transformOrigin = "bottom right", 
+            element.style.bottom = "100%", element.style.right = "100%"});
+            body.forEach(function(element) {return element.style.height = "100vh", element.style.width = "100vw"});
+        }
+*/
     },
 
     getDom: function () {
