@@ -165,13 +165,14 @@ header {
 }
 
 @media (max-height: 1024px) {
-  .quotes, 
-  .compliments, 
-  .newsfeed {
-    display: none !important;
-  }
-
-  body {
-    zoom: 0.9 !important;
+  html {
+    zoom: 0.75 !important;
+    transform: rotate(90deg);
+    transform-origin: center center;
+    position: relative;
+    top: -170px;
+    left: 170px;
+    width: 80%;
+    height: 125%;
   }
 }
