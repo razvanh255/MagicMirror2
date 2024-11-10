@@ -38,6 +38,36 @@ Module.register("phases", {
         }
     },
 
+    getDom: function() {
+        const date = new Date();
+        const jd = this.calculateJulianDate(date);
+        const { image, phase } = this.calculateMoonPhase(jd);
+
+        if (this.config.moonPhasesNightOnly) {
+            const hour = date.getHours();
+            if (hour < this.config.nightStart && hour >= this.config.nightEnd) return document.createElement("div");
+        }
+
+        this.sendNotification("MOON_PHASE", { phase: phase });
+
+        const wrapper = document.createElement("div");
+        wrapper.style.height = `calc(${this.config.height / 2}px)`;
+
+        const img = document.createElement("img");
+        img.style.height = `${this.config.height}px`;
+        img.style.width = `${this.config.width}px`;
+        img.src = `modules/phases/pix/${image}`;
+        wrapper.appendChild(img);
+
+        const txt = document.createElement("span");
+        txt.className = "medium bright";
+        txt.style.cssFloat = "left";
+        txt.innerHTML = this.translate(phase);
+        wrapper.appendChild(txt);
+
+        return wrapper;
+    },
+
     calculateMoonPhase: function(jd) {
         const phases = [
             { limit: 0.5, image: 'wanecres2.png', phase: "waning_crescent" },
@@ -110,36 +140,7 @@ Module.register("phases", {
             }
         }
         return phases[0];
-    },
-
-    getDom: function() {
-        const date = new Date();
-        const jd = this.calculateJulianDate(date);
-        const { image, phase } = this.calculateMoonPhase(jd);
-
-        if (this.config.moonPhasesNightOnly) {
-            const hour = date.getHours();
-            if (hour < this.config.nightStart && hour >= this.config.nightEnd) return document.createElement("div");
-        }
-
-        this.sendNotification("MOON_PHASE", { phase: phase });
-
-        const wrapper = document.createElement("div");
-        wrapper.style.height = `calc(${this.config.height / 2}px)`;
-
-        const img = document.createElement("img");
-        img.style.height = `${this.config.height}px`;
-        img.style.width = `${this.config.width}px`;
-        img.src = `modules/phases/pix/${image}`;
-        wrapper.appendChild(img);
-
-        const txt = document.createElement("span");
-        txt.className = "medium bright";
-        txt.style.cssFloat = "left";
-        txt.innerHTML = this.translate(phase);
-        wrapper.appendChild(txt);
-
-        return wrapper;
+        //Log.info(phase);
     },
 
     calculateJulianDate: function(date) {
