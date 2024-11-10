@@ -9,7 +9,7 @@ Module.register('DHT22_', {
     showTemperatureText: true,
     showHumidityText: true,
     headerText: 'Condiții interioare',
-    updateInterval: 10000,
+    updateInterval: 60 * 1000,
     temperatureIconColor: 'orangered',
     humidityIconColor: 'skyblue',
     temperatureFontSize: '',

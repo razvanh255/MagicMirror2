@@ -259,7 +259,7 @@ Module.register("pollution", {
 
 		if (notification === "AIR_RESPONSE" && this.config.oneLoader) {
 			this.processAir(payload);
-			Log.log("Air " + payload);
+			//Log.log("Air " + payload);
 		}
 	},
 

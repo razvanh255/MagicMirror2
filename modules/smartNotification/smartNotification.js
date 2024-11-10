@@ -33,6 +33,7 @@ Module.register("smartNotification", {
     },
 
     start: function () {
+        document.body.style.opacity = 0;
         this.isOnline = navigator.onLine;
         this.scheduleNotifications();
     //  this.scheduleHourlyNotifications();
@@ -45,6 +46,10 @@ Module.register("smartNotification", {
         //this.rotatePage();
         this.checkOnlineStatus();
         window.addEventListener("resize", this.adjustZoom.bind(this));
+        setTimeout(function() {
+            document.body.style.transition = "opacity 2s ease-in-out";
+            document.body.style.opacity = 1;
+        }, 1000);
     },
 
     getStyles: function () {
@@ -159,29 +164,37 @@ Module.register("smartNotification", {
 
     dynamicBackground: function() {
         if (this.config.dynamicBackground) {
-            setTimeout(() => {
-                var below = document.querySelector('.below');
+            var below = document.querySelector('.below');
+            if (!below) return;
+            
+            below.style.backgroundImage = "url('css/lcars/lcars01.jpg')";
+            
+            setInterval(() => {
                 var date = new Date();
-                var hour = date.getHours();
+                var currentHour = date.getHours();
+                var currentMinute = date.getMinutes();
+                var currentMinute = date.getMinutes();
                 
                 var periods = [
-                    { start: 0, end: 6, image: "css/lcars/lcars05.jpg" },
-                    { start: 6, end: 7, image: "css/lcars/lcars04.jpg" },
-                    { start: 7, end: 12, image: "css/lcars/lcars01.jpg" },
-                    { start: 12, end: 13, image: "css/lcars/lcars03.jpg" },
-                    { start: 13, end: 23, image: "css/lcars/lcars01.jpg" },
-                    { start: 23, end: 24, image: "css/lcars/lcars02.jpg" }
+                    { startHour: 6, startMinute: 0, endHour: 23, endMinute: 59, image: "css/lcars/lcars01.jpg", transition: "5s" },
+                    { startHour: 0, startMinute: 0, endHour: 5, endMinute: 59, image: "css/lcars/lcars02.jpg", transition: "2s" }
                 ];
 
                 for (var i = 0; i < periods.length; i++) {
                     var period = periods[i];
-                    if (hour >= period.start && hour < period.end) {
+                    if (
+                        (currentHour > period.startHour || 
+                        (currentHour === period.startHour && currentMinute >= period.startMinute)) &&
+                        (currentHour < period.endHour || 
+                        (currentHour === period.endHour && currentMinute < period.endMinute))
+                    ) {
                         below.style.backgroundImage = "url('" + period.image + "')";
+                        below.style.transition = "background-image " + period.transition + " ease-in-out";
                         break;
                     }
                 }
 
-            }, 1000);
+            }, 5000); // Verifică la fiecare 5 secunde
         }
     },
 
