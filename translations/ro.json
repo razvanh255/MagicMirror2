@@ -30,9 +30,25 @@
 	"NNW": "NNW",
 
 	"FEELS": "Se simte ca fiind {DEGREE}",
+	"PRECIP_POP": "Pre.",
+	"PRECIP_AMOUNT": "Precipitații",
+	"Temperature": "Temperatura",
+	"Humidity": "Umiditate",
 
 	"UPDATE_NOTIFICATION": "Un update este disponibil pentru MagicMirror².",
 	"UPDATE_NOTIFICATION_MODULE": "Un update este disponibil pentru modulul {MODULE_NAME}.",
 	"UPDATE_INFO_SINGLE": "Există {COMMIT_COUNT} commit-uri noi pe branch-ul {BRANCH_NAME}.",
-	"UPDATE_INFO_MULTIPLE": "Există {COMMIT_COUNT} commit-uri noi pe branch-ul {BRANCH_NAME}."
+	"UPDATE_INFO_MULTIPLE": "Există {COMMIT_COUNT} commit-uri noi pe branch-ul {BRANCH_NAME}.",
+
+	"MODULE_CONFIG_CHANGED": "Opțiunile de configurare pentru {MODULE_NAME} s-au schimbat.\nVerifică documentația.",
+	"MODULE_CONFIG_ERROR": "Eroare în modulul {MODULE_NAME}. {ERROR}",
+	"MODULE_ERROR_MALFORMED_URL": "Adresă greșită.",
+	"MODULE_ERROR_NO_CONNECTION": "Fără conecxiune.",
+	"MODULE_ERROR_UNAUTHORIZED": "Autorizare eșuată.",
+	"MODULE_ERROR_UNSPECIFIED": "Verifocă logurile pentru detalii.",
+
+	"NEWSFEED_NO_ITEMS": "Nicio știre pentru moment.",
+	"UPDATE_NOTIFICATION_DONE": "Update realizat pentru {MODULE_NAME}",
+	"UPDATE_NOTIFICATION_ERROR": "Eroare la Update pentru {MODULE_NAME}",
+	"UPDATE_NOTIFICATION_NEED-RESTART": "Este necesară Restartarea MagicMirror."
 }

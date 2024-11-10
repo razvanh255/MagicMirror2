@@ -7,6 +7,8 @@
 	"RUNNING": "Ends in",
 	"EMPTY": "No upcoming events.",
 	"WEEK": "Week {weekNumber}",
+	"DAY": "Day {dayNumber}",
+	"WEEK!": "Week",
 
 	"N": "N",
 	"NNE": "NNE",
@@ -28,6 +30,8 @@
 	"FEELS": "Feels like {DEGREE}",
 	"PRECIP_POP": "PoP",
 	"PRECIP_AMOUNT": "Precipitation amount",
+	"Temperature": "Temperature",
+	"Humidity": "Humidity",
 
 	"MODULE_CONFIG_CHANGED": "The configuration options for the {MODULE_NAME} module have changed.\nPlease check the documentation.",
 	"MODULE_CONFIG_ERROR": "Error in the {MODULE_NAME} module. {ERROR}",
