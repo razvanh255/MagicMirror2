@@ -131,7 +131,7 @@ Module.register("onecall", {
 
 	// Define required scripts.
 	getStyles: function () {
-		return ["onecall.css", "pollution.css"
+		return ["onecall.css"
 				//	, "fontawesome.css", "weather-icons-wind.css"
 				];
 	},
