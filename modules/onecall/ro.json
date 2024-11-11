@@ -7,6 +7,8 @@
 
 	"NOW": "Acum",
 	"HOME": "Interior",
+	"TEMP": "Temperatura",
+	"HUM": "Umiditate",
 
 	"FEELS": "Se simte ca fiind: {DEGREE} ",
 	"Real feel: ": "Se simte ca fiind: ",
@@ -14,7 +16,7 @@
 	"RAIN": "Ploaie ",
 	"SNOW": "Zăpadă ",
 	"DEWPOINT": "Punct de rouă: {DEGREE} ",
-	"Dew Point: ": "Punct de rouă: ",
+	"Dew Point: ": "Rouă: ",
 	"UVI": " Indice UV ",
 	"No prep": "Fără precipitații ",
 	"No rain": "Nu plouă",

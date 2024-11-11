@@ -7,6 +7,8 @@
 
 	"NOW": "Now",
 	"HOME": "Inside",
+	"TEMP": "Temperature",
+	"HUM": "Humidity",
 
 	"FEELS": "Feels like: {DEGREE} ",
 	"Real feel: ": "Real feel: ",

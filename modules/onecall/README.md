@@ -5,7 +5,7 @@
 
 
 
-Modified MagicMirror2 original current & forecast weather module based on Openweathermap with Onecall endpoint and compliments. New update with temperature and humidity from DHT22 sensor.
+Modified MagicMirror2 original current & forecast weather module based on Openweathermap with Onecall endpoint and compliments. 
 
 As the name suggests this module call only once your appid no matter how many instances are loaded, for current, hourly or daily, it uses the onecall endpoint for which reason it was designed for.
 

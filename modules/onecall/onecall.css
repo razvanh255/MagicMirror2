@@ -9,6 +9,10 @@
 
 /* Weather */
 
+.onecall {
+  margin-top: -7px;
+}
+
 .onecall .currentweather .subs {
   font-size: 50%;
 }
@@ -19,7 +23,7 @@
 .onecall .currentweather .wi-sunrise,
 .onecall .currentweather .fa-binoculars {
   display: inline-block;
-  transform: scale(0.65);
+  transform: scale(0.85);
 }
 
 .onecall .currentweather .wi-hot,
@@ -72,6 +76,20 @@
 .onecall .currentweather .description::first-letter,
 .onecall .current-description::first-letter {
   text-transform: capitalize !important;
+}
+
+.onecall .forecast-description {
+  text-transform: capitalize !important;
+  display: inline-block !important;
+  width: 100%;
+}
+
+.onecall .currentweather .description,
+.onecall .current-description,
+.onecall .forecast-description {
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  white-space: nowrap;
 }
 
 .compliments .wi {
@@ -216,7 +234,7 @@
   float: right;
   margin-bottom: 5px;
 }
-
+/*
 .onecall .daily table tr:nth-child(1) .en:nth-child(1),
 .onecall .daily table tr:nth-child(2) .en:nth-child(1),
 .onecall .daily table tr:nth-child(1) .ro:nth-child(1),
@@ -266,7 +284,7 @@
 .onecall .daily .item:nth-child(1) .fday {
   color: lime;
 }
-
+*/
 .onecall .weatherforecast .day {
   text-transform: capitalize;
 }
@@ -280,7 +298,7 @@
 .onecall .weatherforecast .weather-icon,
 .onecall .weatherforecast .dewPoint,
 .onecall .weatherforecast table tr td:nth-child(2) {
-  width: 15% !important;
+  width: 8% !important;
 }
 
 .onecall .weatherforecast .max-temp,
@@ -299,7 +317,7 @@
 .onecall .weatherforecast .rain,
 .onecall .weatherforecast .uvIndex,
 .onecall .weatherforecast table tr td:nth-child(5) {
-  width: 25% !important;
+  width: 32% !important;
 }
 
 .onecall .weatherforecast .rain, 
@@ -462,6 +480,11 @@
   line-height: 1.6;
 }
 
+.onecall .xslarge {
+  font-size: 1.8rem;
+  line-height: 1.8;
+}
+
 .onecall .slarge {
   font-size: 2rem;
   line-height: 2;
@@ -474,6 +497,9 @@
 
 .onecall .details {
   line-height: 2.2rem;
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  white-space: nowrap;
 }
 
 .onecall .xlarge {
