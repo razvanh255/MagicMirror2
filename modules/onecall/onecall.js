@@ -510,7 +510,7 @@ Module.register("onecall", {
 				if (this.config.showDew) {
 					var dew = document.createElement("span"); 
 					dew.className = "dew medium cyan";
-					dew.innerHTML = this.translate("Dew Point: ") + "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1).replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + " &nbsp; ";
+					dew.innerHTML = "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1).replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + " &nbsp; "; // this.translate("Dew Point: ") + "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1).replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + " &nbsp; ";
 					small.appendChild(dew);
 				}
 
@@ -518,10 +518,10 @@ Module.register("onecall", {
 				if (this.config.showUvi) {
 					var uvi = document.createElement("span");
 					uvi.className = "uvi medium";
-					uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-hot gold\"></i> " + this.uvi.toFixed(1).replace(".", this.config.decimalSymbol);
+					uvi.innerHTML = "<i class=\"wi wi-hot gold\"></i> " + this.uvi.toFixed(1).replace(".", this.config.decimalSymbol) + " &nbsp; "; // this.translate("UVI") + "<i class=\"wi wi-hot gold\"></i> " + this.uvi.toFixed(1).replace(".", this.config.decimalSymbol);
 					if (this.uvi < 0.1) {
 						uvi.className = uvi.className + " lightgreen";
-						uvi.innerHTML = this.translate("UVI") + "<i class=\"wi wi-stars\"></i> 0";
+						uvi.innerHTML = "<i class=\"wi wi-stars\"></i> 0 &nbsp; "; // this.translate("UVI") + "<i class=\"wi wi-stars\"></i> 0";
 					} else if (this.uvi > 0 && this.uvi < 3) {
 						uvi.className = uvi.className + " lime";
 					} else if (this.uvi >= 3 && this.uvi < 6) {
@@ -538,13 +538,13 @@ Module.register("onecall", {
 
 				// precipitation
 				if (this.config.showCurrentRainAmount) {
-					var precipitation = document.createElement("div");
+					var precipitation = document.createElement("span");
 					precipitation.className = "prep medium";
 					if (this.precipitation > 0) {
 						if(config.units === "imperial") {
-							precipitation.innerHTML = this.translate("PRECIP") + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-umbrella lime\"></i>";
+							precipitation.innerHTML = (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-umbrella lime\"></i>"; // this.translate("PRECIP") + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-umbrella lime\"></i>";
 						} else {
-							precipitation.innerHTML = this.translate("PRECIP") + this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-umbrella lime\"></i>";
+							precipitation.innerHTML = this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-umbrella lime\"></i>"; // this.translate("PRECIP") + this.precipitation.toFixed(1).replace(".", this.config.decimalSymbol) + " mm <i class=\"wi wi-umbrella lime\"></i>";
 						}
 					} else {
 						precipitation.innerHTML = this.translate("No prep") + " <i class=\"fa fa-tint-slash skyblue\"></i>";
