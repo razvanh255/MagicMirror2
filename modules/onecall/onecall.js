@@ -204,8 +204,8 @@ Module.register("onecall", {
 		}
 
 		if (this.config.showIndoorTemp_Hum) {
-			this.indoorTemperature = null;
-			this.indoorHumidity = null;
+			this.indoorTemperature = "";
+			this.indoorHumidity = "";
 			this.sendSocketNotification('START_DHT_READING', { gpioPin: this.config.gpioPin });
 
 			setInterval(() => {
@@ -222,7 +222,9 @@ Module.register("onecall", {
 				let humidity = payload.humidity + this.config.humidityOffset;
 
 				this.indoorTemperature = temperature;
-				this.indooorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
+				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
+				document.querySelector('.indoorTemp').innerHTML = " <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
+				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity;
 			} else {
 				Log.warn('Invalid humidity reading:', payload.humidity);
 			}
@@ -437,12 +439,12 @@ Module.register("onecall", {
 
 				var indoorTemperature = document.createElement("span");
 				indoorTemperature.className = "medium bright indoorTemp";
-				indoorTemperature.innerHTML = "&nbsp; <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
+				indoorTemperature.innerHTML = "___";
 				large.appendChild(indoorTemperature);
 
 				var indoorHumidity = document.createElement("span");
 				indoorHumidity.className = "medium bright indoorHum";
-				indoorHumidity.innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity + "%";
+				indoorHumidity.innerHTML = "___";
 				large.appendChild(indoorHumidity);
 			}
 
@@ -1491,21 +1493,7 @@ Module.register("onecall", {
 				this.processHourly(payload);
 			}
 		}
-
-/*		if (this.config.showIndoorTemp_Hum) {
-			if (notification === "INDOOR_TEMPERATURE") {
-				this.indoorTemperature = this.roundValue(payload);
-			//	this.updateDom(this.config.animationSpeed);
-				document.querySelector('.indoorTemp').innerHTML = "&nbsp; <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol) + "&degC;";
-			} else this.indoorTemperature = "___";
-
-			if (notification === "INDOOR_HUMIDITY") {
-				this.indoorHumidity = this.roundValue(payload);
-			//	this.updateDom(this.config.animationSpeed);
-				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity + "%";
-			} else this.indoorHumidity = "___";
-		}
-*/	},
+	},
 
 	/* processWeather(data)
 	 * Uses the received data to set the various values.
