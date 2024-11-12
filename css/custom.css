@@ -164,15 +164,10 @@ header {
   filter: blur(2px) brightness(50%);
 }
 
-@media (max-height: 1024px) {
-  html {
-    zoom: 0.75 !important;
-    transform: rotate(90deg);
-    transform-origin: center center;
-    position: relative;
-    top: -170px;
-    left: 170px;
-    width: 80%;
-    height: 125%;
+@media (max-height: 1280px) {
+  .compliments,
+  .quotes,
+  .newsfeed {
+    visibility: hidden;
   }
 }
