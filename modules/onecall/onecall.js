@@ -216,6 +216,7 @@ Module.register("onecall", {
 
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === 'DHT_DATA') {
+			document.querySelector('.inDoor').style = "display: none";
 			if (payload.humidity >= 0 && payload.humidity <= 100) {
 				let temperature = payload.temperature + this.config.temperatureOffset;
 				temperature = this.convertTemperature(temperature);
@@ -223,11 +224,15 @@ Module.register("onecall", {
 
 				this.indoorTemperature = temperature;
 				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
+				document.querySelector('.inDoor').style = "display: run-in";
 				document.querySelector('.indoorTemp').innerHTML = " <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
 				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity;
+				Log.info('DHT22:' + payload.humidity + " " + payload.temperature);
 			} else {
 				Log.warn('Invalid humidity reading:', payload.humidity);
 			}
+		} else {
+			document.querySelector('.inDoor').style = "display: none";
 		}
 	},
 
@@ -429,23 +434,25 @@ Module.register("onecall", {
 			}
 
 			if (this.config.showIndoorTemp_Hum) {
-				var indoorSpace = document.createElement("br");
-				large.appendChild(indoorSpace);
+				var inDoor = document.createElement("div");
+				inDoor.className = "inDoor";
 
 				var indoorIcon = document.createElement("span");
 				indoorIcon.className = "medium";
 				indoorIcon.innerHTML = "<i class=\"fa fa-home gold\"></i> " + this.translate("HOME");
-				large.appendChild(indoorIcon);
+				inDoor.appendChild(indoorIcon);
 
 				var indoorTemperature = document.createElement("span");
 				indoorTemperature.className = "medium bright indoorTemp";
-				indoorTemperature.innerHTML = "___";
-				large.appendChild(indoorTemperature);
+				indoorTemperature.innerHTML = " No DHT";
+				inDoor.appendChild(indoorTemperature);
 
 				var indoorHumidity = document.createElement("span");
 				indoorHumidity.className = "medium bright indoorHum";
-				indoorHumidity.innerHTML = "___";
-				large.appendChild(indoorHumidity);
+				indoorHumidity.innerHTML = " data";
+				inDoor.appendChild(indoorHumidity);
+
+				large.appendChild(inDoor);
 			}
 
 			wrapper.appendChild(large);
@@ -942,17 +949,17 @@ Module.register("onecall", {
 
 						var dewPoint = document.createElement("td");
 						dewPoint.innerHTML = parseFloat(forecast.dewPoint).toFixed(1).replace(".", this.config.decimalSymbol) + degreeLabel;
-						dewPoint.className = "align-center dewPoint cyan";
+						dewPoint.className = "align-right dewPoint cyan";
 						row.appendChild(dewPoint);
 
 						var pressure = document.createElement("td");
 						pressure.innerHTML = Math.round(forecast.pressure * 750.062 / 1000).toFixed(0) + "Hg";
-						pressure.className = "align-center pressure gold";
+						pressure.className = "align-rightr pressure gold";
 						row.appendChild(pressure);
 
 						var realFeelDay = document.createElement("td");
 						realFeelDay.innerHTML =  "<span class=\"currentweather\"><i class=\"wi wi-thermometer yellow\"></i></span> " + parseFloat(forecast.realFeelsDay).toFixed(0) + degreeLabel;
-						realFeelDay.className = "align-center realFeel yellow";
+						realFeelDay.className = "align-right realFeel yellow";
 						row.appendChild(realFeelDay);
 							
 						var uvIndex = document.createElement("td");
@@ -1166,12 +1173,12 @@ Module.register("onecall", {
 
 					var medTempCell = document.createElement("td");
 					medTempCell.innerHTML = forecast.hourTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
-					medTempCell.className = "align-center lime";
+					medTempCell.className = "align-right lime";
 					row.appendChild(medTempCell);
 
 					var realFeel = document.createElement("td");
 					realFeel.innerHTML = "<span class=\"currentweather\"><i class=\"wi wi-thermometer yellow\"></i></span> " + parseFloat(forecast.realFeels).toFixed(0).replace(".", this.config.decimalSymbol) + degreeLabel;
-					realFeel.className = "align-center yellow";
+					realFeel.className = "align-right yellow";
 					row.appendChild(realFeel);	
 
 					if (this.config.showRainAmount) {

@@ -6,14 +6,14 @@ Module.register("smartNotification", {
         dimLevel: 50,
         dimStart: "23:50",
         dimEnd: "05:50",
-        rotation: -90,
+        rotation: "0",
         sharpMode: true,
         hideModulesTime: "00:00",
         showModulesTime: "00:00",
         modulesToHide: [],
         notifications: [
             {
-                month: 13,
+                month: 13, // under development
                 day: 25,
                 startHour: 8,
                 endHour: 23,
@@ -36,14 +36,14 @@ Module.register("smartNotification", {
         document.body.style.opacity = 0;
         this.isOnline = navigator.onLine;
         this.scheduleNotifications();
-    //  this.scheduleHourlyNotifications();
+        this.scheduleHourlyNotifications();
         this.checkTimeNotification();
         this.dynamicBackground();
         this.scheduleBrightness();
         this.scheduleHideModules();
         this.scheduleShowModules();
         this.adjustZoom();
-    //  this.rotatePage();
+        this.rotatePage();
         this.checkOnlineStatus();
         window.addEventListener("resize", this.adjustZoom.bind(this));
         setTimeout(function() {
@@ -115,7 +115,7 @@ Module.register("smartNotification", {
     scheduleHourlyNotifications: function () {
         setInterval(() => {
             const now = new Date();
-            if (now.getMinutes() === 0 && now.getSeconds() === 0) {
+            if (now.getMinutes() === 62 && now.getSeconds() === 62) { // under development
                 this.sendNotification("HIDE_ALERT");
                 this.sendNotification("SHOW_ALERT", {
                     title: "<i class='fa-regular fa-clock gold'></i> Ora exactă",
@@ -300,60 +300,28 @@ Module.register("smartNotification", {
     },
 
     rotatePage: function () {
-        var land = window.matchMedia("screen and (orientation: landscape)");
-        var port = window.matchMedia("screen and (orientation: portrait)");
+        var htmlx = document.querySelector("body").style;
 
-        setInterval(() => {
-            if (land.matches) {
-                document.body.style.transform = "rotate(" + config.rotation + "deg)";
-                document.body.style.transformOrigin = "top left";
-            //    document.body.style.height = "100vw";
-            //    document.body.style.height = "100vw";
-            //    document.body.style.top = "100%";
-            //    document.body.style.left = "100%";
-            } else if (port.matches) {
-                document.body.style.transform = "rotate(0deg)";
-                document.body.style.transformOrigin = "top left";
-            //    document.body.style.top = "0";
-            //    document.body.style.left = "0";
-            //    document.body.style.width = "100vw";
-            //    document.body.style.height = "100vh";
-            } else if (this.config.rotation === 90 && land.matches) {
-                document.body.style.transform = "rotate(" + config.rotation + "deg)";
-                document.body.style.transformOrigin = "botom right";
-                document.body.style.bottom = "100%";
-                document.body.style.right = "0";
-                document.body.style.width = "100vh";
-                document.body.style.height = "100vw";
-            } else if (this.config.rotation === 90 && port.matches) {
-                document.body.style.transform = "rotate(0deg)";
-                document.body.style.transformOrigin = "bottom right";
-                document.body.style.bottom = "100%";
-                document.body.style.right = "100%";
-                document.body.style.width = "100vw";
-                document.body.style.height = "100vh";
+    //    setInterval(() => {
+            if (this.config.rotation === "90") {
+                htmlx.width = "1155px";
+                htmlx.height = "2255px";
+                htmlx.transform = "scale(0.8) rotate(90deg)";
+                htmlx.transformOrigin = "center";
+                htmlx.position = "absolute";
+                htmlx.top = "-56%";
+                htmlx.left = "12.5%"; 
+            } else if (this.config.rotation === "-90") {
+                htmlx.width = "1155px";
+                htmlx.height = "2255px";
+                htmlx.transform = "scale(0.8) rotate(-90deg)";
+                htmlx.transformOrigin = "center";
+                htmlx.position = "absolute";
+                htmlx.top = "-64.5%";
+                htmlx.left = "11.6%"; 
             }
-        }, 1000);
-/*
-        if (this.config.rotate === -90 && land.matches) {
-            html.forEach(function(element) {return element.style.transform = "rotate(-90deg)", element.style.transformOrigin = "top left", 
-            element.style.top = "100%", element.style.left = "0"});
-            body.forEach(function(element) {return element.style.height = "100vw", element.style.width = "100vh"});
-        } else if (this.config.rotate === 90 && land.matches) {
-            html.forEach(function(element) {return element.style.transform = "rotate(90deg)", element.style.transformOrigin = "bottom right", 
-            element.style.bottom = "100%", 
-            element.style.right = "0"});
-            body.forEach(function(element) {return element.style.height = "100vw", element.style.width = "100vh"});
-        } else if (this.config.rotate === -90 && port.matches) {
-            html.forEach(function(element) {return element.style.transform = "rotate(0deg)", element.style.transformOrigin = "top left", 
-            element.style.top = "0", element.style.left = "0"});
-            body.forEach(function(element) {return element.style.height = "100vh", element.style.width = "100vw"});
-        } else if (this.config.rotate === 90 && port.matches) {
-            html.forEach(function(element) {return element.style.transform = "rotate(0deg)", element.style.transformOrigin = "bottom right", 
-            element.style.bottom = "100%", element.style.right = "100%"});
-            body.forEach(function(element) {return element.style.height = "100vh", element.style.width = "100vw"});
-        }
-*/
+
+    //    }, 60 * 60 * 1000);
     },
 
     getDom: function () {
