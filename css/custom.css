@@ -32,6 +32,10 @@ html {
   cursor: default;
 }
 
+.hidden {
+  display: none;
+}
+
 .region.middle.center {
   top: 79%;
 }
