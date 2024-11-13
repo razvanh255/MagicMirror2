@@ -491,6 +491,11 @@
   line-height: 1.6;
 }
 
+.onecall .xmedium {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
 .onecall .xslarge {
   font-size: 1.8rem;
   line-height: 1.8;

@@ -216,7 +216,6 @@ Module.register("onecall", {
 
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === 'DHT_DATA') {
-			document.querySelector('.inDoor').style = "display: none !important";
 			if (payload.humidity >= 0 && payload.humidity <= 100) {
 				let temperature = payload.temperature + this.config.temperatureOffset;
 				temperature = this.convertTemperature(temperature);
@@ -224,15 +223,13 @@ Module.register("onecall", {
 
 				this.indoorTemperature = temperature;
 				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
-				document.querySelector('.inDoor').style = "display: run-in";
+				document.querySelector('.inDoor').style = "display: block";
 				document.querySelector('.indoorTemp').innerHTML = " <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
-				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity;
-				Log.info('DHT22:' + payload.humidity + " " + payload.temperature);
+				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
+				Log.info('DHT22: H' + payload.humidity + " T" + payload.temperature);
 			} else {
 				Log.warn('Invalid humidity reading:', payload.humidity);
 			}
-		} else {
-			document.querySelector('.inDoor').style = "display: none !important";
 		}
 	},
 
@@ -435,7 +432,7 @@ Module.register("onecall", {
 
 			if (this.config.showIndoorTemp_Hum) {
 				var inDoor = document.createElement("div");
-				inDoor.className = "inDoor";
+				inDoor.className = "inDoor hidden";
 
 				var indoorIcon = document.createElement("span");
 				indoorIcon.className = "medium";
@@ -444,12 +441,12 @@ Module.register("onecall", {
 
 				var indoorTemperature = document.createElement("span");
 				indoorTemperature.className = "medium bright indoorTemp";
-				indoorTemperature.innerHTML = " No DHT";
+				indoorTemperature.innerHTML = " No sensor";
 				inDoor.appendChild(indoorTemperature);
 
 				var indoorHumidity = document.createElement("span");
 				indoorHumidity.className = "medium bright indoorHum";
-				indoorHumidity.innerHTML = " data";
+				indoorHumidity.innerHTML = " payload";
 				inDoor.appendChild(indoorHumidity);
 
 				large.appendChild(inDoor);
