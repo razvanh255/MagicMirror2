@@ -7,7 +7,7 @@
 
 Modified MagicMirror2 original current & forecast weather module based on Openweathermap with Onecall endpoint and compliments. 
 
-As the name suggests this module call only once your appid no matter how many instances are loaded, for current, hourly or daily, it uses the onecall endpoint for which reason it was designed for. Now with DHT22 sensor for indoor temperature and humidity.
+As the name suggests this module call only once your appid no matter how many instances are loaded, for current, hourly or daily, it uses the onecall endpoint for which reason it was designed for. Now with DHT22 sensor for indoor temperature and humidity based on https://github.com/J0n4e/MMM-DHT22
 
 However the module can work without oneLoader and in this case it must be deactivated via <i>oneLoader: false</i> and configure latitude, longitude and appid for each instance used.
 
