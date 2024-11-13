@@ -43,7 +43,7 @@ Module.register("smartNotification", {
         this.scheduleHideModules();
         this.scheduleShowModules();
         this.adjustZoom();
-        this.rotatePage();
+    //  this.rotatePage();
         this.checkOnlineStatus();
         window.addEventListener("resize", this.adjustZoom.bind(this));
         setTimeout(function() {
@@ -300,28 +300,32 @@ Module.register("smartNotification", {
     },
 
     rotatePage: function () {
-        var htmlx = document.querySelector("body").style;
+        var body = Array.from(document.querySelectorAll("body"));
+        var html = document.querySelector("body");
+        var land = window.matchMedia("screen and (max-height: 1024px) and (orientation: landscape)");
+        var port = window.matchMedia("screen and (max-height: 1280px) and (orientation: portrait)");
 
-    //    setInterval(() => {
-            if (this.config.rotation === "90") {
-                htmlx.width = "1155px";
-                htmlx.height = "2255px";
-                htmlx.transform = "scale(0.8) rotate(90deg)";
-                htmlx.transformOrigin = "center";
-                htmlx.position = "absolute";
-                htmlx.top = "-56%";
-                htmlx.left = "12.5%"; 
-            } else if (this.config.rotation === "-90") {
-                htmlx.width = "1155px";
-                htmlx.height = "2255px";
-                htmlx.transform = "scale(0.8) rotate(-90deg)";
-                htmlx.transformOrigin = "center";
-                htmlx.position = "absolute";
-                htmlx.top = "-64.5%";
-                htmlx.left = "11.6%"; 
+        setInterval(() => {
+            var targetResolution = window.screen.height === 1024 && window.screen.width === 1280;
+            var htmlElement = document.querySelector("html");
+            var bodyElement = document.querySelector("body");
+
+            bodyElement.style.transformOrigin = targetResolution ? "top right" : "top left";
+            bodyElement.style.transform = targetResolution ? "rotate(90deg) scale(0.8) translateX(107%) translateY(1%)" : "rotate(0deg) scale(1) translateX(0%) translateY(0%)";
+            bodyElement.style.height = targetResolution ? "114vw" : "122vh";
+            bodyElement.style.width = targetResolution ? "107vh" : "115vw";
+/*
+            if (this.config.rotation === -90 && land.matches) {
+                body.forEach((element) => {return element.style.transform = "scale(0.8) rotate(-90deg)", element.style.transformOrigin = "top left", element.style.top = "82%", element.style.left = "-8%", element.style.height = "114vw", element.style.width = "107vh"});
+            } else if (this.config.rotation === 90 && land.matches) {
+                body.forEach((element) => {return element.style.transform = "scale(0.8) rotate(90deg)", element.style.transformOrigin = "bottom right", element.style.bottom = "-5%", element.style.right = "92%", element.style.height = "114vw", element.style.width = "107vh"});
+            } else if (this.config.rotation === -90 && port.matches) {
+                body.forEach((element) => {return element.style.transform = "scale(1) rotate(0deg)", element.style.transformOrigin = "top left", element.style.top = "0%", element.style.left = "0%", element.style.height = "122vh", element.style.width = "115vw"});
+            } else if (this.config.rotation === 90 && port.matches) {
+                body.forEach((element) => {return element.style.transform = "scale(1) rotate(0deg)", element.style.transformOrigin = "bottom right", element.style.bottom = "0%", element.style.right = "0%", element.style.height = "122vh", element.style.width = "115vw"});
             }
-
-    //    }, 60 * 60 * 1000);
+*/
+        }, 1000);
     },
 
     getDom: function () {

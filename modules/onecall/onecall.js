@@ -216,7 +216,7 @@ Module.register("onecall", {
 
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === 'DHT_DATA') {
-			document.querySelector('.inDoor').style = "display: none";
+			document.querySelector('.inDoor').style = "display: none !important";
 			if (payload.humidity >= 0 && payload.humidity <= 100) {
 				let temperature = payload.temperature + this.config.temperatureOffset;
 				temperature = this.convertTemperature(temperature);
@@ -232,7 +232,7 @@ Module.register("onecall", {
 				Log.warn('Invalid humidity reading:', payload.humidity);
 			}
 		} else {
-			document.querySelector('.inDoor').style = "display: none";
+			document.querySelector('.inDoor').style = "display: none !important";
 		}
 	},
 

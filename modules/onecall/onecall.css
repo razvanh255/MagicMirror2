@@ -467,8 +467,19 @@
   font-size: 1rem;
 }
 
+.onecall .xsmall {
+  font-size: 1.1rem;
+}
+
 .onecall .midget {
   font-size: 1.2rem;
+}
+
+.onecall .dmedium {
+  font-size: 1.2rem;
+  line-height: 1 !important;
+  display: inline-block;
+  margin-bottom: 5px;
 }
 
 .onecall .smedium {
