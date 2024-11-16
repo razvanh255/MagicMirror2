@@ -1,7 +1,6 @@
 /* global WeatherProvider, WeatherObject */
 
-/*
- * This class is a provider for SMHI (Sweden only).
+/* This class is a provider for SMHI (Sweden only).
  * Metric system is the only supported unit,
  * see https://www.smhi.se/
  */
@@ -139,11 +138,9 @@ WeatherProvider.register("smhi", {
 		currentWeather.weatherType = this.convertWeatherType(this.paramValue(weatherData, "Wsymb2"), currentWeather.isDayTime());
 		currentWeather.feelsLikeTemp = this.calculateApparentTemperature(weatherData);
 
-		/*
-		 * Determine the precipitation amount and category and update the
-		 * weatherObject with it, the valuetype to use can be configured or uses
-		 * median as default.
-		 */
+		// Determine the precipitation amount and category and update the
+		// weatherObject with it, the valuetype to use can be configured or uses
+		// median as default.
 		let precipitationValue = this.paramValue(weatherData, this.config.precipitationValue);
 		switch (this.paramValue(weatherData, "pcat")) {
 			// 0 = No precipitation

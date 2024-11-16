@@ -1,5 +1,3 @@
-/* global Cron */
-
 Module.register("compliments", {
 	// Module config defaults.
 	defaults: {
@@ -13,22 +11,27 @@ Module.register("compliments", {
 		updateInterval: 30000,
 		remoteFile: null,
 		fadeSpeed: 4000,
-		morningStartTime: 3,
+		remoteFileRefreshInterval: null,
+		morningStartTime: 5,
 		morningEndTime: 12,
 		afternoonStartTime: 12,
-		afternoonEndTime: 17,
+		afternoonEndTime: 18,
 		random: true,
 		specialDayUnique: false
 	},
 	lastIndexUsed: -1,
 	// Set currentweather from module
 	currentWeatherType: "",
+
 	cron_regex: /^(((\d+,)+\d+|((\d+|[*])[/]\d+|((JAN|FEB|APR|MA[RY]|JU[LN]|AUG|SEP|OCT|NOV|DEC)(-(JAN|FEB|APR|MA[RY]|JU[LN]|AUG|SEP|OCT|NOV|DEC))?))|(\d+-\d+)|\d+(-\d+)?[/]\d+(-\d+)?|\d+|[*]|(MON|TUE|WED|THU|FRI|SAT|SUN)(-(MON|TUE|WED|THU|FRI|SAT|SUN))?) ?){5}$/i,
 	date_regex: "[1-9.][0-9.][0-9.]{2}-([0][1-9]|[1][0-2])-([1-2][0-9]|[0][1-9]|[3][0-1])",
 	pre_defined_types: ["anytime", "morning", "afternoon", "evening"],
+
 	// Define required scripts.
 	getScripts () {
-		return ["croner.js", "moment.js"];
+		return [
+			//	"croner.js", "moment.js"
+			];
 	},
 
 	// Define start sequence.
@@ -41,7 +44,15 @@ Module.register("compliments", {
 			const response = await this.loadComplimentFile();
 			this.config.compliments = JSON.parse(response);
 			this.updateDom();
+			if (this.config.remoteFileRefreshInterval != null) {
+				this.remoteFileRefreshFunc = setInterval(() => {
+					const response = this.loadComplimentFile();
+					this.config.compliments = JSON.parse(response);
+					this.lastIndexUsed = -1;
+				}, this.config.remoteFileRefreshInterval)
+			}
 		}
+
 		let minute_sync_delay = 1;
 		// loop thru all the configured when events
 		for (let m of Object.keys(this.config.compliments)) {
@@ -115,8 +126,7 @@ Module.register("compliments", {
 	complimentArray () {
 		const now = moment();
 		const hour = now.hour();
-		const date = now.format("YYYY-MM-DD");
-		let compliments = [];
+		const date = now.format("DD-MM-YYYY");
 
 		// Add time of day compliments
 		if (hour >= this.config.morningStartTime && hour < this.config.morningEndTime && this.config.compliments.hasOwnProperty("morning")) {

@@ -57,7 +57,7 @@
     {% else %}
         <div>
             {% if (config.showSourceTitle and sourceTitle) or config.showPublishDate %}
-                <div class="newsfeed-source light small dimmed">
+                <div class="newsfeed-source light xmedium dimmed">
                     {% if sourceTitle and config.showSourceTitle %}
                         {{ escapeText(sourceTitle, config.dangerouslyDisableAutoEscaping) }}{% if config.showPublishDate %}, {% else %}:{% endif %}
                     {% endif %}
@@ -68,7 +68,7 @@
                 {{ escapeTitle(title, url, config.dangerouslyDisableAutoEscaping, config.showTitleAsUrl) }}
             </div>
             {% if config.showDescription %}
-                <div class="newsfeed-desc small light{{ ' no-wrap' if not config.wrapDescription }}">
+                <div class="newsfeed-desc medium light{{ ' no-wrap' if not config.wrapDescription }}">
                     {% if config.truncDescription %}
                         {{ escapeText(description | truncate(config.lengthDescription) , config.dangerouslyDisableAutoEscaping) }}
                     {% else %}

@@ -25,11 +25,11 @@
                 <td class="align-right min-temp">
                     {{ f.minTemperature | roundValue | unit("temperature") | decimalSymbol }}
                 </td>
-                {% if config.showPrecipitationAmount %}
+            <!--{% if config.showPrecipitationAmount %}
                     <td class="align-right bright precipitation-amount">
                         {{ f.precipitationAmount | unit("precip", f.precipitationUnits) }}
                     </td>
-                {% endif %}
+                {% endif %}-->
                 {% if config.showPrecipitationProbability %}
                     <td class="align-right bright precipitation-prob">
                         {{ f.precipitationProbability | unit('precip', '%') }}

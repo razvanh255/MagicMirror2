@@ -11,10 +11,10 @@ Module.register("weather", {
 		tempUnits: config.units,
 		windUnits: config.units,
 		timeFormat: config.timeFormat,
-		updateInterval: 10 * 60 * 1000, // every 10 minutes
+		updateInterval: 15 * 60 * 1000, // every 10 minutes
 		animationSpeed: 1000,
 		showFeelsLike: true,
-		showHumidity: "none", // this is now a string; see current.njk
+		showHumidity: "none", // wind, temp, feelslike, below
 		showIndoorHumidity: false,
 		showIndoorTemperature: false,
 		allowOverrideNotification: false,
@@ -27,7 +27,7 @@ Module.register("weather", {
 		showWindDirection: true,
 		showWindDirectionAsArrow: false,
 		degreeLabel: false,
-		decimalSymbol: ".",
+		decimalSymbol: config.decimal,
 		maxNumberOfDays: 5,
 		maxEntries: 5,
 		ignoreToday: false,
@@ -51,12 +51,19 @@ Module.register("weather", {
 
 	// Define required scripts.
 	getStyles () {
-		return ["font-awesome.css", "weather-icons.css", "weather.css"];
+		return [
+				//	"fontawesome.css", "weather-icons-wind.css", "weather.css"
+				];
 	},
 
 	// Return the scripts that are necessary for the weather module.
 	getScripts () {
-		return ["moment.js", "weatherutils.js", "weatherobject.js", this.file("providers/overrideWrapper.js"), "weatherprovider.js", "suncalc.js", this.file(`providers/${this.config.weatherProvider.toLowerCase()}.js`)];
+		return [
+				// "moment.js", 
+				"weatherutils.js", "weatherobject.js", this.file("providers/overrideWrapper.js"), "weatherprovider.js",
+				// "suncalc.js", 
+				this.file(`providers/${this.config.weatherProvider.toLowerCase()}.js`)
+				];
 	},
 
 	// Override getHeader method.
@@ -182,7 +189,6 @@ Module.register("weather", {
 			locationName: this.weatherProvider?.fetchedLocationName,
 			providerName: this.weatherProvider.providerName
 		};
-
 		this.sendNotification("WEATHER_UPDATED", notificationPayload);
 	},
 

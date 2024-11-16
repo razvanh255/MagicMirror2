@@ -8,7 +8,7 @@ Module.register("alert", {
 		alert_effect: "jelly", // scale|slide|genie|jelly|flip|bouncyflip|exploader
 		display_time: 3500, // time a notification is displayed in seconds
 		position: "center",
-		welcome_message: false // shown at startup
+		welcome: false // shown at startup
 	},
 
 	getScripts () {
@@ -16,21 +16,16 @@ Module.register("alert", {
 	},
 
 	getStyles () {
-		return ["font-awesome.css", this.file("./styles/notificationFx.css"), this.file(`./styles/${this.config.position}.css`)];
+		return [
+				//	"fontawesome.css", 
+				this.file("./styles/notificationFx.css"), this.file(`./styles/${this.config.position}.css`)
+				];
 	},
 
 	getTranslations () {
 		return {
-			bg: "translations/bg.json",
-			da: "translations/da.json",
-			de: "translations/de.json",
 			en: "translations/en.json",
-			es: "translations/es.json",
-			fr: "translations/fr.json",
-			hu: "translations/hu.json",
-			nl: "translations/nl.json",
-			ru: "translations/ru.json",
-			th: "translations/th.json"
+			ro: "translations/ro.json"
 		};
 	},
 
@@ -45,9 +40,9 @@ Module.register("alert", {
 			this.config.effect = `${this.config.effect}-${this.config.position}`;
 		}
 
-		if (this.config.welcome_message) {
-			const message = this.config.welcome_message === true ? this.translate("welcome") : this.config.welcome_message;
-			await this.showNotification({ title: this.translate("sysTitle"), message });
+		if (this.config.welcome) {
+			const message = this.config.welcome === true ? this.translate("welcome") : this.config.welcome;
+			await this.showNotification({ title: this.config.welcome === true ? this.translate("sysTitle") : this.config.title, message });
 		}
 	},
 
@@ -66,11 +61,16 @@ Module.register("alert", {
 	async showNotification (notification) {
 		const message = await this.renderMessage(notification.templateName || "notification", notification);
 
+		if (!Object.keys(this.alerts).length) {
+			this.toggleBlur(true);
+		}
+
 		new NotificationFx({
 			message,
 			layout: "growl",
 			effect: this.config.effect,
-			ttl: notification.timer || this.config.display_time
+			ttl: notification.timer || this.config.display_time,
+			onClose: () => this.toggleBlur(false),
 		}).show();
 	},
 
@@ -133,7 +133,7 @@ Module.register("alert", {
 
 	toggleBlur (add = false) {
 		const method = add ? "add" : "remove";
-		const modules = document.querySelectorAll(".module");
+		const modules = document.querySelectorAll(".region");
 		for (const module of modules) {
 			module.classList[method]("alert-blur");
 		}

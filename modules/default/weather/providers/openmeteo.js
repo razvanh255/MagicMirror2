@@ -1,7 +1,6 @@
 /* global WeatherProvider, WeatherObject */
 
-/*
- * This class is a provider for Open-Meteo,
+/* This class is a provider for Open-Meteo,
  * see https://open-meteo.com/
  */
 
@@ -10,18 +9,15 @@ const GEOCODE_BASE = "https://api.bigdatacloud.net/data/reverse-geocode-client";
 const OPEN_METEO_BASE = "https://api.open-meteo.com/v1";
 
 WeatherProvider.register("openmeteo", {
-
-	/*
-	 * Set the name of the provider.
-	 * Not strictly required, but helps for debugging.
-	 */
+	// Set the name of the provider.
+	// Not strictly required, but helps for debugging.
 	providerName: "Open-Meteo",
 
 	// Set the default config properties that is specific to this provider
 	defaults: {
 		apiBase: OPEN_METEO_BASE,
-		lat: 0,
-		lon: 0,
+		lat: config.lat,
+		lon: config.lon,
 		pastDays: 0,
 		type: "current"
 	},
@@ -386,6 +382,7 @@ WeatherProvider.register("openmeteo", {
 		currentWeather.precipitationAmount = parseFloat(weather.hourly[h].precipitation);
 		currentWeather.precipitationProbability = parseFloat(weather.hourly[h].precipitation_probability);
 		currentWeather.uv_index = parseFloat(weather.hourly[h].uv_index);
+		//currentWeather.pressure = parseFloat(data.hourly[0].pressure_msl * 0.750062).toFixed(0);
 
 		return currentWeather;
 	},

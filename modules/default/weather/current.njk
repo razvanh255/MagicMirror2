@@ -1,18 +1,18 @@
 {% macro humidity() %}
     {% if current.humidity %}
-        <span class="humidity"><span>{{ current.humidity | decimalSymbol }}</span><sup>&nbsp;<i class="wi wi-humidity humidity-icon"></i></sup></span>
+        <span class="humidity"><span>{{ current.humidity | decimalSymbol }}</span><sup>&nbsp;<i class="wi wi-humidity humidity-icon blue"></i></sup></span>
     {% endif %}
 {% endmacro %}
 {% if current %}
     {% if not config.onlyTemp %}
         <div class="normal medium">
-            <span class="wi wi-strong-wind dimmed"></span>
+            <span class="wi wi-strong-wind blue"></span>
             <span>
                 {{ current.windSpeed | unit("wind") | round }}
                 {% if config.showWindDirection %}
                     <sup>
                         {% if config.showWindDirectionAsArrow %}
-                            <i class="fas fa-long-arrow-alt-down" style="transform:rotate({{ current.windFromDirection }}deg)"></i>
+                            <i class="fas fa-long-arrow-alt-down green" style="transform:rotate({{ current.windFromDirection }}deg)"></i>
                         {% else %}
                             {{ current.cardinalWindDirection() | translate }}
                         {% endif %}
@@ -35,7 +35,7 @@
             {% endif %}
             {% if config.showUVIndex %}
                 <td class="align-right bright uv-index">
-                    <div class="wi dimmed wi-hot"></div>
+                    <div class="wi dimmed wi-hot orange"></div>
                     {{ current.uv_index }}
                 </td>
             {% endif %}
@@ -62,7 +62,7 @@
             </span>
         {% endif %}
         <span class="light wi weathericon wi-{{ current.weatherType }}"></span>
-        <span class="light bright">{{ current.temperature | roundValue | unit("temperature") | decimalSymbol }}</span>
+        <span class="light bright xxlarge">{{ current.temperature | roundValue | unit("temperature") | decimalSymbol }}</span>
         {% if config.showHumidity === "temp" %}
             <span class="medium bright">{{ humidity() }}</span>
         {% endif %}

@@ -160,7 +160,7 @@ const WeatherUtils = {
 			if (imperialWeatherObject.windSpeed) imperialWeatherObject.windSpeed = this.convertWind(imperialWeatherObject.windSpeed, "imperial");
 		}
 
-		return imperialWeatherObject;
+		return imperialWeatherObject;	
 	}
 };
 

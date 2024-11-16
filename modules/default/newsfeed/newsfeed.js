@@ -46,7 +46,9 @@ Module.register("newsfeed", {
 
 	// Define required scripts.
 	getScripts () {
-		return ["moment.js"];
+		return [
+			//	"moment.js"
+			];
 	},
 
 	//Define required styles.

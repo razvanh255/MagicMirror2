@@ -27,12 +27,14 @@ Module.register("clock", {
 
 		showSunTimes: false,
 		showMoonTimes: false, // options: false, 'times' (rise/set), 'percent' (lit percent), 'phase' (current phase), or 'both' (percent & phase)
-		lat: 47.630539,
-		lon: -122.344147
+		lat: config.lat,
+		lon: config.lon
 	},
 	// Define required scripts.
 	getScripts () {
-		return ["moment.js", "moment-timezone.js", "suncalc.js"];
+		return [
+				//	"moment.js", "moment-timezone.js", "suncalc.js"
+				];
 	},
 	// Define styles.
 	getStyles () {
@@ -87,6 +89,7 @@ Module.register("clock", {
 		// Set locale.
 		moment.locale(config.language);
 	},
+	
 	// Override dom generator.
 	getDom () {
 		const wrapper = document.createElement("div");
@@ -113,10 +116,10 @@ Module.register("clock", {
 
 		// Style Wrappers
 		dateWrapper.className = "date normal medium";
-		timeWrapper.className = "time bright large light";
+		timeWrapper.className = "time bright xxlarge light";
 		secondsWrapper.className = "seconds dimmed";
-		sunWrapper.className = "sun dimmed small";
-		moonWrapper.className = "moon dimmed small";
+		sunWrapper.className = "sun dimmed xmedium";
+		moonWrapper.className = "moon dimmed xmedium";
 		weekWrapper.className = "week dimmed medium";
 
 		// Set content of wrappers.
@@ -147,7 +150,7 @@ Module.register("clock", {
 
 		if (this.config.displayType !== "analog" && this.config.showTime) {
 			timeWrapper.innerHTML = timeString;
-			secondsWrapper.innerHTML = now.format("ss");
+			secondsWrapper.innerHTML = now.format(" ss");
 			if (this.config.showPeriodUpper) {
 				periodWrapper.innerHTML = now.format("A");
 			} else {
@@ -178,11 +181,11 @@ Module.register("clock", {
 				nextEvent = tomorrowSunTimes.sunrise;
 			}
 			const untilNextEvent = moment.duration(moment(nextEvent).diff(now));
-			const untilNextEventString = `${untilNextEvent.hours()}h ${untilNextEvent.minutes()}m`;
+			const untilNextEventString = `${untilNextEvent.hours()}h ${untilNextEvent.minutes()}'`;
 			sunWrapper.innerHTML
-				= `<span class="${isVisible ? "bright" : ""}"><i class="fas fa-sun" aria-hidden="true"></i> ${untilNextEventString}</span>`
-				+ `<span><i class="fas fa-arrow-up" aria-hidden="true"></i> ${formatTime(this.config, sunTimes.sunrise)}</span>`
-				+ `<span><i class="fas fa-arrow-down" aria-hidden="true"></i> ${formatTime(this.config, sunTimes.sunset)}</span>`;
+				= `<span class="${isVisible ? "bright" : ""}"><i class=\"wi wi-day-sunny gold\"></i> ${untilNextEventString}</span>`
+				+ `<span><i class=\"wi wi-sunrise gold\"></i> ${formatTime(this.config, sunTimes.sunrise)}</span>`
+				+ `<span><i class=\"wi wi-sunset gold\"></i> ${formatTime(this.config, sunTimes.sunset)}</span>`;
 			digitalWrapper.appendChild(sunWrapper);
 		}
 
@@ -208,13 +211,14 @@ Module.register("clock", {
 
 			moonWrapper.innerHTML
 				= `<span class="${isVisible ? "bright" : ""}">${image} ${showFraction ? illuminatedFractionString : ""}</span>`
-				+ `<span><i class="fas fa-arrow-up" aria-hidden="true"></i> ${moonRise ? formatTime(this.config, moonRise) : "..."}</span>`
-				+ `<span><i class="fas fa-arrow-down" aria-hidden="true"></i> ${moonSet ? formatTime(this.config, moonSet) : "..."}</span>`;
+				+ `<span>&nbsp;<i class=\"wi wi-moonrise mooncolor\"></i>&nbsp; ${moonRise ? formatTime(this.config, moonRise) : "..."}</span>`
+				+ `<span>&nbsp;<i class=\"wi wi-moonset mooncolor\"></i>&nbsp; ${moonSet ? formatTime(this.config, moonSet) : "..."}</span>`;
 			digitalWrapper.appendChild(moonWrapper);
 		}
 
 		if (this.config.showWeek) {
-			weekWrapper.innerHTML = this.translate("WEEK", { weekNumber: now.week() });
+			weekWrapper.innerHTML = this.translate("DAY", { dayNumber: now.dayOfYear() }) + " din " + this.translate("WEEK", { weekNumber: now.week() });
+			//+ ", " + config.location;
 			digitalWrapper.appendChild(weekWrapper);
 		}
 

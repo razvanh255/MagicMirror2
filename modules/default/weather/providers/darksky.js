@@ -1,24 +1,37 @@
 /* global WeatherProvider, WeatherObject */
 
-/* This class is a provider for Pirate Weather, it is a replacement for Dark Sky (same api),
- * see http://pirateweather.net/en/latest/
+/* MagicMirror²
+ * Module: Weather
+ * Provider: Dark Sky
+ *
+ * By Nicholas Hubbard https://github.com/nhubbard
+ * MIT Licensed
+ *
+ * This class is a provider for Dark Sky.
+ * Note that the Dark Sky API does not provide rainfall. Instead it provides
+ * snowfall and precipitation probability
  */
-WeatherProvider.register("pirateweather", {
+WeatherProvider.register("darksky", {
 	// Set the name of the provider.
 	// Not strictly required, but helps for debugging.
-	providerName: "pirateweather",
+	providerName: "Dark Sky",
 
 	// Set the default config properties that is specific to this provider
 	defaults: {
 		useCorsProxy: true,
-		apiBase: "https://api.pirateweather.net",
+		apiBase: "https://api.darksky.net",
 		weatherEndpoint: "/forecast",
 		apiKey: "",
 		lat: 0,
 		lon: 0
 	},
 
-	fetchCurrentWeather () {
+	units: {
+		imperial: "us",
+		metric: "si"
+	},
+
+	fetchCurrentWeather() {
 		this.fetchData(this.getUrl())
 			.then((data) => {
 				if (!data || !data.currently || typeof data.currently.temperature === "undefined") {
@@ -35,7 +48,7 @@ WeatherProvider.register("pirateweather", {
 			.finally(() => this.updateAvailable());
 	},
 
-	fetchWeatherForecast () {
+	fetchWeatherForecast() {
 		this.fetchData(this.getUrl())
 			.then((data) => {
 				if (!data || !data.daily || !data.daily.data.length) {
@@ -53,52 +66,51 @@ WeatherProvider.register("pirateweather", {
 	},
 
 	// Create a URL from the config and base URL.
-	getUrl () {
-		return `${this.config.apiBase}${this.config.weatherEndpoint}/${this.config.apiKey}/${this.config.lat},${this.config.lon}?units=si&lang=${this.config.lang}`;
+	getUrl() {
+		const units = this.units[this.config.units] || "auto";
+		return `${this.config.apiBase}${this.config.weatherEndpoint}/${this.config.apiKey}/${this.config.lat},${this.config.lon}?units=${units}&lang=${this.config.lang}`;
 	},
 
 	// Implement WeatherDay generator.
-	generateWeatherDayFromCurrentWeather (currentWeatherData) {
-		const currentWeather = new WeatherObject();
+	generateWeatherDayFromCurrentWeather(currentWeatherData) {
+		const currentWeather = new WeatherObject(this.config.units, this.config.tempUnits, this.config.windUnits, this.config.useKmh);
 
 		currentWeather.date = moment();
 		currentWeather.humidity = parseFloat(currentWeatherData.currently.humidity);
 		currentWeather.temperature = parseFloat(currentWeatherData.currently.temperature);
 		currentWeather.windSpeed = parseFloat(currentWeatherData.currently.windSpeed);
-		currentWeather.windFromDirection = currentWeatherData.currently.windBearing;
+		currentWeather.windDirection = currentWeatherData.currently.windBearing;
 		currentWeather.weatherType = this.convertWeatherType(currentWeatherData.currently.icon);
-		currentWeather.sunrise = moment.unix(currentWeatherData.daily.data[0].sunriseTime);
-		currentWeather.sunset = moment.unix(currentWeatherData.daily.data[0].sunsetTime);
+		currentWeather.sunrise = moment(currentWeatherData.daily.data[0].sunriseTime, "X");
+		currentWeather.sunset = moment(currentWeatherData.daily.data[0].sunsetTime, "X");
 
 		return currentWeather;
 	},
 
-	generateWeatherObjectsFromForecast (forecasts) {
+	generateWeatherObjectsFromForecast(forecasts) {
 		const days = [];
 
 		for (const forecast of forecasts) {
-			const weather = new WeatherObject();
+			const weather = new WeatherObject(this.config.units, this.config.tempUnits, this.config.windUnits, this.config.useKmh);
 
-			weather.date = moment.unix(forecast.time);
+			weather.date = moment(forecast.time, "X");
 			weather.minTemperature = forecast.temperatureMin;
 			weather.maxTemperature = forecast.temperatureMax;
 			weather.weatherType = this.convertWeatherType(forecast.icon);
 			weather.snow = 0;
-			weather.rain = 0;
 
-			let precip = 0;
+			// The API will return centimeters if units is 'si' and will return inches for 'us'
+			// Note that the Dark Sky API does not provide rainfall.
+			// Instead it provides snowfall and precipitation probability
 			if (forecast.hasOwnProperty("precipAccumulation")) {
-				precip = forecast.precipAccumulation * 10;
-			}
-
-			weather.precipitationAmount = precip;
-			if (forecast.hasOwnProperty("precipType")) {
-				if (forecast.precipType === "snow") {
-					weather.snow = precip;
-				} else {
-					weather.rain = precip;
+				if (this.config.units === "imperial" && !isNaN(forecast.precipAccumulation)) {
+					weather.snow = forecast.precipAccumulation;
+				} else if (!isNaN(forecast.precipAccumulation)) {
+					weather.snow = forecast.precipAccumulation * 10;
 				}
 			}
+
+			weather.precipitation = weather.snow;
 
 			days.push(weather);
 		}
@@ -106,8 +118,8 @@ WeatherProvider.register("pirateweather", {
 		return days;
 	},
 
-	// Map icons from Pirate Weather to our icons.
-	convertWeatherType (weatherType) {
+	// Map icons from Dark Sky to our icons.
+	convertWeatherType(weatherType) {
 		const weatherTypes = {
 			"clear-day": "day-sunny",
 			"clear-night": "night-clear",
