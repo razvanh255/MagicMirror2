@@ -312,7 +312,7 @@ Module.register("smartNotification", {
         body.style.bottom = "0";
         body.style.right = "100%";
         body.style.height = "100vw";
-        body.style.width = "94vh";
+        body.style.width = "95vh";
     },
 
     getDom: function () {
