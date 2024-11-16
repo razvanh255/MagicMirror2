@@ -20,10 +20,10 @@
   --font-size: 20px;
   --font-size-small: 0.75rem;
 
-  --gap-body-top: 60px;
+  --gap-body-top: 40px;
   --gap-body-right: 40px;
-  --gap-body-bottom: 80px;
-  --gap-body-left: 150px;
+  --gap-body-bottom: 40px;
+  --gap-body-left: 40px;
 
   --gap-modules: 30px;
 }
@@ -37,11 +37,11 @@ html {
 }
 
 .region.middle.center {
-  top: 79%;
+  top: 75%;
 }
 
 .region.lower.third {
-  top: 85%;
+  top: 82%;
 }
 
 .region.fullscreen.below {
