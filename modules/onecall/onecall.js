@@ -55,7 +55,7 @@ Module.register("onecall", {
 		// current settings
 		showWindDirection: true,
 		showWindDirectionAsArrow: true,		// not realy working
-		showIndoorTemp_Hum: false,
+		showIndoorTemp_Hum: true,
 		useBeaufort: false,
 		useKMPHwind: true,
 		showFeelsLike: true,
