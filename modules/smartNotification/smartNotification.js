@@ -1,13 +1,13 @@
 Module.register("smartNotification", {
     defaults: {
         showStatus: true,
-        dynamicBackground: true,
+        dynamicBackground: false,
         dimInterval: 10,
         dimLevel: 50,
         dimStart: "23:50",
         dimEnd: "05:50",
-        rotation: "0",
-        sharpMode: true,
+        rotation: false,
+        sharpMode: false,
         hideModulesTime: "00:00",
         showModulesTime: "00:00",
         modulesToHide: [],
@@ -42,13 +42,16 @@ Module.register("smartNotification", {
         this.scheduleBrightness();
         this.scheduleHideModules();
         this.scheduleShowModules();
-        this.adjustZoom();
-    //  this.rotatePage();
         this.checkOnlineStatus();
+        this.adjustZoom();
         window.addEventListener("resize", this.adjustZoom.bind(this));
+        var self = this;
         setTimeout(function() {
             document.body.style.transition = "opacity 2s ease-in-out";
             document.body.style.opacity = 1;
+            if (self.config.rotation) {
+                self.rotatePage();
+            }
         }, 1000);
     },
 
@@ -300,32 +303,16 @@ Module.register("smartNotification", {
     },
 
     rotatePage: function () {
-        var body = Array.from(document.querySelectorAll("body"));
-        var html = document.querySelector("body");
-        var land = window.matchMedia("screen and (max-height: 1024px) and (orientation: landscape)");
-        var port = window.matchMedia("screen and (max-height: 1280px) and (orientation: portrait)");
+        var html = document.querySelector("html");
+        var body = document.querySelector("body");
 
-        setInterval(() => {
-            var targetResolution = window.screen.height === 1024 && window.screen.width === 1280;
-            var htmlElement = document.querySelector("html");
-            var bodyElement = document.querySelector("body");
-
-            bodyElement.style.transformOrigin = targetResolution ? "top right" : "top left";
-            bodyElement.style.transform = targetResolution ? "rotate(90deg) scale(0.8) translateX(107%) translateY(1%)" : "rotate(0deg) scale(1) translateX(0%) translateY(0%)";
-            bodyElement.style.height = targetResolution ? "114vw" : "122vh";
-            bodyElement.style.width = targetResolution ? "107vh" : "115vw";
-/*
-            if (this.config.rotation === -90 && land.matches) {
-                body.forEach((element) => {return element.style.transform = "scale(0.8) rotate(-90deg)", element.style.transformOrigin = "top left", element.style.top = "82%", element.style.left = "-8%", element.style.height = "114vw", element.style.width = "107vh"});
-            } else if (this.config.rotation === 90 && land.matches) {
-                body.forEach((element) => {return element.style.transform = "scale(0.8) rotate(90deg)", element.style.transformOrigin = "bottom right", element.style.bottom = "-5%", element.style.right = "92%", element.style.height = "114vw", element.style.width = "107vh"});
-            } else if (this.config.rotation === -90 && port.matches) {
-                body.forEach((element) => {return element.style.transform = "scale(1) rotate(0deg)", element.style.transformOrigin = "top left", element.style.top = "0%", element.style.left = "0%", element.style.height = "122vh", element.style.width = "115vw"});
-            } else if (this.config.rotation === 90 && port.matches) {
-                body.forEach((element) => {return element.style.transform = "scale(1) rotate(0deg)", element.style.transformOrigin = "bottom right", element.style.bottom = "0%", element.style.right = "0%", element.style.height = "122vh", element.style.width = "115vw"});
-            }
-*/
-        }, 1000);
+        body.style.transform = "rotate(90deg)";
+        body.style.transformOrigin = "bottom right";
+        body.style.position = "absolute";
+        body.style.bottom = "0";
+        body.style.right = "100%";
+        body.style.height = "100vw";
+        body.style.width = "94vh";
     },
 
     getDom: function () {
