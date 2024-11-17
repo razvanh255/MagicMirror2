@@ -79,6 +79,7 @@ Module.register("smartNotification", {
                                 let randomMessage = this.getRandomMessage(notification.messages);
                                 let randomTitle = this.getRandomTitle(notification.titles);
                                 this.sendNotification("SHOW_ALERT", {
+                                    type: "notification",
                                     title: randomTitle,
                                     message: randomMessage,
                                     timer: 8000
@@ -92,6 +93,7 @@ Module.register("smartNotification", {
                             let randomMessage = this.getRandomMessage(notification.messages);
                             let randomTitle = this.getRandomTitle(notification.titles);
                             this.sendNotification("SHOW_ALERT", {
+                                type: "notification",
                                 title: randomTitle,
                                 message: randomMessage,
                                 timer: 8000
@@ -122,6 +124,7 @@ Module.register("smartNotification", {
             if (now.getMinutes() === 62 && now.getSeconds() === 62) { // under development
                 this.sendNotification("HIDE_ALERT");
                 this.sendNotification("SHOW_ALERT", {
+                    type: "notification",
                     title: "<i class='fa-regular fa-clock gold'></i> Ora exactă",
                     message: "Este ora: " + now.getHours() + ":00",
                     timer: 5000
@@ -155,6 +158,7 @@ Module.register("smartNotification", {
                     if (timeIntervals[i].hours.includes(currentTime)) {
                         this.sendNotification("SHOW_ALERT", {
                             //imageFA: bell,
+                            type: "notification",
                             title: bell + sharp,
                             message: timeIntervals[i].message,
                             timer: 8000
@@ -227,7 +231,7 @@ Module.register("smartNotification", {
             this.scheduleBrightnessChange(timeConfig, targetLevel); // Reprogramare zilnică
         }, timeToChange);
     },
-
+/*
     fadeBrightness: function (targetLevel) {
         let currentBrightness = parseFloat(document.body.style.opacity) || 1; // Obține luminozitatea curentă
         let step = (targetLevel / 100 - currentBrightness) / 60; // Calculul pașilor pentru tranziție de 60 de secunde
@@ -243,6 +247,41 @@ Module.register("smartNotification", {
             
             document.body.style.opacity = currentBrightness; // Aplică luminozitatea curentă
         }, 1000); // Actualizează fiecare secundă
+    },
+*/
+    fadeBrightness: function (targetLevel, startTime) {
+        let currentBrightness = parseFloat(document.body.style.opacity) || 1; // Obține luminozitatea curentă
+        let step = (targetLevel / 100 - currentBrightness) / 60; // Calculul pașilor pentru tranziție de 60 de secunde
+
+        const applyFade = () => {
+            let fadeInterval = setInterval(() => {
+                currentBrightness += step;
+
+                // Asigură-te că luminozitatea nu depășește limitele
+                if ((step > 0 && currentBrightness >= targetLevel / 100) || (step < 0 && currentBrightness <= targetLevel / 100)) {
+                    currentBrightness = targetLevel / 100; // Setează luminozitatea la nivelul țintă
+                    clearInterval(fadeInterval); // Oprește intervalul odată ce s-a ajuns la țintă
+                }
+
+                document.body.style.opacity = currentBrightness; // Aplică luminozitatea curentă
+            }, 1000); // Actualizează fiecare secundă
+        };
+
+        // Verifică dacă timpul de start a trecut
+        const now = new Date();
+        const start = new Date(startTime);
+
+        if (now >= start) {
+            applyFade(); // Execută tranziția direct
+        } else {
+            // Ascultă evenimentul DOMContentLoaded
+            document.addEventListener("DOMContentLoaded", () => {
+                const nowAfterLoad = new Date();
+                if (nowAfterLoad >= start) {
+                    applyFade();
+                }
+            });
+        }
     },
 
     scheduleHideModules: function () {
@@ -344,7 +383,14 @@ Module.register("smartNotification", {
             this.isOnline = navigator.onLine;
             
             if (previousStatus !== this.isOnline) {
-                this.updateDom();
+                if (!this.config.showStatus) {
+                    this.sendNotification("SHOW_ALERT", {
+                    type: "notification",
+                    title: "<i class=\"orangered medium fas fa-wifi\"></i>&nbsp; <span class='orangered slarge bright light'>Fără conexiune</span>",
+                    message: "Verifică conexiunea și routerul WiFi",
+                    timer: 10000
+                    });
+                } else this.updateDom();
             }
         };
 
