@@ -167,7 +167,7 @@ header {
 .alert-blur {
   filter: blur(2px) brightness(50%);
 }
-
+/*
 @media (max-height: 1280px) {
   .compliments,
   .quotes,
