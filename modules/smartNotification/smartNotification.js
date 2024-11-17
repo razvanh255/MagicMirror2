@@ -7,6 +7,7 @@ Module.register("smartNotification", {
         dimStart: "23:50",
         dimEnd: "05:50",
         rotation: false,
+        format: 16/9,
         sharpMode: false,
         hideModulesTime: "00:00",
         showModulesTime: "00:00",
@@ -289,12 +290,10 @@ Module.register("smartNotification", {
         let screenHeight = window.innerHeight;
         let zoomLevel = 1;
 
-        if (screenWidth >= 1280) {
-            zoomLevel = 1;
-        } else if (screenWidth >= 1080) {
+        if (screenWidth >= 1080) {
             zoomLevel = 0.8;
         } else if (screenWidth >= 800) {
-            zoomLevel = 0.75;
+            zoomLevel = 0.7;
         } else {
             zoomLevel = 0.6;
         }
@@ -305,14 +304,25 @@ Module.register("smartNotification", {
     rotatePage: function () {
         var html = document.querySelector("html");
         var body = document.querySelector("body");
-
-        body.style.transform = "rotate(90deg)";
-        body.style.transformOrigin = "bottom right";
-        body.style.position = "absolute";
-        body.style.bottom = "0";
-        body.style.right = "100%";
-        body.style.height = "100vw";
-        body.style.width = "95vh";
+        
+        if (this.config.rotation === 90 && this.config.format === 4/3) {
+            body.style.transform = "rotate(90deg)";
+            body.style.transformOrigin = "bottom right";
+            body.style.position = "absolute";
+            body.style.bottom = "0";
+            body.style.right = "96%";
+            body.style.height = "121vw";
+            body.style.width = "118vh";
+        } else if (this.config.rotation === 90 && this.config.format === 3/4) {
+            body.style.transform = "rotate(90deg)";
+            body.style.transformOrigin = "bottom right";
+            body.style.position = "absolute";
+            body.style.bottom = "0";
+            body.style.right = "98%";
+            body.style.height = "130vw";
+            body.style.width = "129vh";
+            body.style.zoom = 0.75;
+        }
     },
 
     getDom: function () {
