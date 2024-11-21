@@ -1,0 +1,10 @@
+[Unit]
+After=graphical.target
+Description=MagicMirror
+
+[Service]
+User=razvanh
+ExecStart=/home/razvanh/MagicMirror/startw.sh
+
+[Install]
+WantedBy=graphical.target
