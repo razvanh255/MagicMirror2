@@ -4,4 +4,4 @@ Name=MagicMirror
 
 Type=Application
 
-Exec=/home/razvanh/Desktop/startw.sh
+Exec=/home/razvanh/MagicMirror/startw.sh
