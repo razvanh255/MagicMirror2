@@ -160,47 +160,47 @@ Module.register("onecall", {
 		this.now = moment().format("HH:mm");
 		this.date = moment().format("DD.MM.YYYY");
 
-		this.windSpeed = null;
-		this.windDirection = null;
-		this.windDeg = null;
-		this.temperature = "0";
-		this.weatherType = null;
-		this.feelsLike = null;
-		this.dew = null;
-		this.uvi = null;
-		this.desc = null;
-		this.dailyDesc = null;
-		this.hourlyailyDesc = null;
-		this.rain = null;
-		this.snow = null;
-		this.min = null;
-		this.max = null;
-		this.pressure = null;
-		this.visibility = null;
-		this.start = null;
-		this.end = null;
-		this.startDate = null;
-		this.endDate = null;
-		this.alert = null;
+		this.windSpeed = 0;
+		this.windDirection = 0;
+		this.windDeg = 0;
+		this.temperature = null;
+		this.weatherType = 0;
+		this.feelsLike = 0;
+		this.dew = 0;
+		this.uvi = 0;
+		this.desc = 0;
+		this.dailyDesc = 0;
+		this.hourlyailyDesc = 0;
+		this.rain = 0;
+		this.snow = 0;
+		this.minTemp = 0;
+		this.maxTemp = 0;
+		this.pressure = 0;
+		this.visibility = 0;
+		this.start = 0;
+		this.end = 0;
+		this.startDate = 0;
+		this.endDate = 0;
+		this.alert = 0;
 
-		this.aqi = null;
-		this.aqi_t = null;
-		this.aqi_i = null;
-		this.aqi_s = null;
-		this.c_co = null;
-		this.c_no = null;
-		this.c_no2 = null;
-		this.c_o3 = null;
-		this.c_so2 = null;
-		this.c_pm25 = null;
-		this.c_pm10 = null;
-		this.c_nh3 = null;
+		this.aqi = 0;
+		this.aqi_t = 0;
+		this.aqi_i = 0;
+		this.aqi_s = 0;
+		this.c_co = 0;
+		this.c_no = 0;
+		this.c_no2 = 0;
+		this.c_o3 = 0;
+		this.c_so2 = 0;
+		this.c_pm25 = 0;
+		this.c_pm10 = 0;
+		this.c_nh3 = 0;
 
+		var self = this;
 		if (this.config.pollutionOneLoader) {
-			var self = this;
-			setTimeout(function () {
+		//	setTimeout(function () {
 				self.AirUpdate();
-			}, 2000);
+		//	}, 5000);
 		}
 
 		if (this.config.showIndoorTemp_Hum) {
@@ -208,8 +208,8 @@ Module.register("onecall", {
 			this.indoorHumidity = "";
 			this.sendSocketNotification('START_DHT_READING', { gpioPin: this.config.gpioPin });
 
-			setInterval(() => {
-				this.sendSocketNotification('START_DHT_READING', { gpioPin: this.config.gpioPin });
+			setInterval(function() {
+				self.sendSocketNotification('START_DHT_READING', { gpioPin: self.config.gpioPin });
 			}, this.config.updateSensor);
 		}
 	},
@@ -217,13 +217,13 @@ Module.register("onecall", {
 	socketNotificationReceived: function(notification, payload) {
 		if (notification === 'DHT_DATA') {
 			if (payload.humidity >= 0 && payload.humidity <= 100) {
-				let temperature = payload.temperature + this.config.temperatureOffset;
+				var temperature = payload.temperature + this.config.temperatureOffset;
 				temperature = this.convertTemperature(temperature);
-				let humidity = payload.humidity + this.config.humidityOffset;
+				var humidity = payload.humidity + this.config.humidityOffset;
 
 				this.indoorTemperature = temperature;
 				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
-				document.querySelector('.inDoor').style = "display: block";
+			//	document.querySelector('.inDoor').style = "display: block";
 				document.querySelector('.indoorTemp').innerHTML = " <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
 				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
 				Log.info('DHT22: H' + payload.humidity + " T" + payload.temperature);
@@ -432,7 +432,7 @@ Module.register("onecall", {
 
 			if (this.config.showIndoorTemp_Hum) {
 				var inDoor = document.createElement("div");
-				inDoor.className = "inDoor hidden";
+				inDoor.className = "inDoor"; // hidden";
 
 				var indoorIcon = document.createElement("span");
 				indoorIcon.className = "medium";
@@ -441,12 +441,12 @@ Module.register("onecall", {
 
 				var indoorTemperature = document.createElement("span");
 				indoorTemperature.className = "medium bright indoorTemp";
-				indoorTemperature.innerHTML = " No sensor";
+				indoorTemperature.innerHTML = " Update";
 				inDoor.appendChild(indoorTemperature);
 
 				var indoorHumidity = document.createElement("span");
 				indoorHumidity.className = "medium bright indoorHum";
-				indoorHumidity.innerHTML = " payload";
+				indoorHumidity.innerHTML = " sensor";
 				inDoor.appendChild(indoorHumidity);
 
 				large.appendChild(inDoor);
@@ -508,7 +508,7 @@ Module.register("onecall", {
 				if (this.config.showMinMax) {
 					var minmax = document.createElement("div"); 
 					minmax.className = "medium";
-					minmax.innerHTML = "<span class='coral'>Max. <i class=\"wi wi-thermometer xmedium\"></i> " + this.max.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + "</span> &nbsp; <span class='skyblue'>Min. <i class=\"wi wi-thermometer xmedium\"></i> " + this.min.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + "</span>";
+					minmax.innerHTML = "<span class='coral'>Max. <i class=\"wi wi-thermometer xmedium\"></i> " + this.maxTemp.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + "</span> &nbsp; <span class='skyblue'>Min. <i class=\"wi wi-thermometer xmedium\"></i> " + this.minTemp.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + "</span>";
 					small.appendChild(minmax);
 				}
 
@@ -564,10 +564,10 @@ Module.register("onecall", {
 			if (!this.config.showTopDescription) {
 				var description = document.createElement("div");
 				if (this.alert === null || !(this.now >= this.start && this.now < this.end) || !(this.date >= this.startDate && this.date <= this.endDate)) {
-					description.className = "bright current-description slarge details";
+					description.className = "bright alerts slarge";
 					description.innerHTML = this.desc;
 				} else if (this.alert !== null && (this.now >= this.start && this.now < this.end) && (this.date >= this.startDate && this.date <= this.endDate)) {
-					description.className = "orangered current-description medium details";
+					description.className = "orangered alerts medium";
 					description.innerHTML = "<i class=\"fas fa-wind\"></i> " + this.translate("ALERTS") + this.start + "-" + this.end;
 				} 
 				wrapper.appendChild(description);
@@ -1518,8 +1518,8 @@ Module.register("onecall", {
 		this.visibility = data.current.visibility;					// visibility.
 		this.dew = data.current.dew_point;							// dew point.
 		this.uvi = data.current.uvi;								// uv index.
-		this.min = parseFloat(data.daily[0].temp.min).toFixed(1);	// temp min.
-		this.max = parseFloat(data.daily[0].temp.max).toFixed(1);	// temp max.
+		this.minTemp = parseFloat(data.daily[0].temp.min).toFixed(1);	// temp min.
+		this.maxTemp = parseFloat(data.daily[0].temp.max).toFixed(1);	// temp max.
 
 		if (data.hasOwnProperty("alerts") && this.config.showAlerts) {
 			this.start = moment.unix(data.alerts[0].start).format("HH:mm");
@@ -1764,7 +1764,7 @@ Module.register("onecall", {
 	DomUpdate: function () {
 		if (!this.loaded) { 
 			this.loaded = true;
-			this.DomUpdate();
+		//	this.DomUpdate();
 			var self = this;
 			setTimeout(function () {
 				var empty = "";
@@ -1772,6 +1772,7 @@ Module.register("onecall", {
 			}, 2000);
 		}
 		this.updateDom(this.config.animationSpeed);
+		this.sendSocketNotification('START_DHT_READING', { gpioPin: this.config.gpioPin });
 	},
 
 	/* scheduleUpdate()
@@ -1791,9 +1792,9 @@ Module.register("onecall", {
 		setInterval(function () {
 			self.OneUpdate();
 			if (self.config.pollutionOneLoader) {
-				setTimeout(function () {
+			//	setTimeout(function () {
 					self.AirUpdate();
-				}, 2000);
+			//	}, 5000);
 			}
 		}, updateInterval);
 	},
