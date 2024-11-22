@@ -1,4 +1,7 @@
 [Desktop Entry]
+
 Name=MagicMirror
+
 Type=Application
+
 Exec=/home/razvanh/Desktop/startw.sh
