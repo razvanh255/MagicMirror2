@@ -29,7 +29,7 @@ let config = {
 
 	language: "ro",
 	locale: "ro-RO",
-	logLevel: ["INFO", "LOG", "WARN", "ERROR"], // Add "INFO", "DEBUG" for even more logging
+	logLevel: ["INFO", "LOG", "WARN", "ERROR"], // Add "DEBUG" for even more logging
 	timeFormat: 24,
 	units: "metric",
 	lat: 44.4375,
@@ -159,64 +159,6 @@ let config = {
 		},
 
 /********** right **********/
-
-		{
-			module: "weather",
-			position: "top_right",
-			classes: "noheader",
-			disabled: true,
-			config: {
-				weatherProvider: "openmeteo",
-				type: "current",
-				showUVIndex: true,
-				showSun: false,
-				showWindDirectionAsArrow: true,
-				showHumidity: "wind",
-				allowOverrideNotification: true
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Prognoza în următoarele zile",
-			disabled: true,
-			config: {
-				weatherProvider: "openmeteo",
-				type: "forecast",
-				showPrecipitationAmount: true,
-				showPrecipitationProbability: true,
-				colored: true,
-				fade: false,
-				appendLocationNameToHeader: false,
-				tableClass: "xmedium",
-				maxNumberOfDays: 8
-			}
-		},
-		{
-			module: "weather",
-			position: "top_right",
-			header: "Prognoza în următoarele ore",
-			disabled: true,
-			config: {
-				weatherProvider: "openmeteo",
-				type: "hourly",
-				showPrecipitationAmount: true,
-				showPrecipitationProbability: true,
-				colored: true,
-				fade: true,
-				appendLocationNameToHeader: false,
-				tableClass: "xmedium",
-				maxEntries: 11
-			}
-		},
-		{
-		    module: 'DHT22_',
-		    position: 'top_right',
-		    disabled: false,
-		    config: {
-		      showData: false,
-		    }
-		},
 		{
 			module: "onecall",
 			position: "top_right",
@@ -231,16 +173,7 @@ let config = {
 				random: false,
 				showIndoorTemp_Hum: true,
 			}
-		},
-		{
-			module: "pollution",
-			position: "top_right",
-			classes: "air quality",
-			disabled: false,
-			config: {
-				calculateAqi: false
-			}
-		},		
+		},	
 
 /********** middle **********/
 
