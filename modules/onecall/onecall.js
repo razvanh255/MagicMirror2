@@ -34,7 +34,7 @@ Module.register("onecall", {
 		// general settings
 		location: config.location,
 		units: config.units,
-		initialLoadDelay: 2000,				// 0 seconds delay
+		initialLoadDelay: 2000,
 		animationSpeed: config.animation,
 		timeFormat: config.timeFormat,
 		language: config.language,
@@ -163,7 +163,7 @@ Module.register("onecall", {
 		this.windSpeed = 0;
 		this.windDirection = 0;
 		this.windDeg = 0;
-		this.temperature = null;
+		this.temperature = "0";
 		this.weatherType = 0;
 		this.feelsLike = 0;
 		this.dew = 0;
@@ -173,8 +173,8 @@ Module.register("onecall", {
 		this.hourlyailyDesc = 0;
 		this.rain = 0;
 		this.snow = 0;
-		this.minTemp = 0;
-		this.maxTemp = 0;
+		this.minTemp = "0";
+		this.maxTemp = "0";
 		this.pressure = 0;
 		this.visibility = 0;
 		this.start = 0;
@@ -198,9 +198,9 @@ Module.register("onecall", {
 
 		var self = this;
 		if (this.config.pollutionOneLoader) {
-		//	setTimeout(function () {
+			setTimeout(function () {
 				self.AirUpdate();
-		//	}, 5000);
+			}, this.config.initialLoadDelay);
 		}
 
 		if (this.config.showIndoorTemp_Hum) {
@@ -223,7 +223,6 @@ Module.register("onecall", {
 
 				this.indoorTemperature = temperature;
 				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
-			//	document.querySelector('.inDoor').style = "display: block";
 				document.querySelector('.indoorTemp').innerHTML = " <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
 				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
 				Log.info('DHT22: H' + payload.humidity + " T" + payload.temperature);
@@ -361,6 +360,14 @@ Module.register("onecall", {
 			wrapper.innerHTML = this.translate("LOADING");
 			wrapper.className = "dimmed light small";
 			return wrapper;
+
+			this.OneUpdate();
+			var self = this;
+			if (this.config.pollutionOneLoader) {
+				setTimeout(function () {
+					self.AirUpdate();
+				}, this.config.initialLoadDelay);
+			}
 		}
 
 		if (this.config.endpointType === "current" || this.config.endpointType === "onecall") {
@@ -563,12 +570,11 @@ Module.register("onecall", {
 			//weather description and alerts.
 			if (!this.config.showTopDescription) {
 				var description = document.createElement("div");
+				description.className = "bright current-description details slarge";
 				if (this.alert === null || !(this.now >= this.start && this.now < this.end) || !(this.date >= this.startDate && this.date <= this.endDate)) {
-					description.className = "bright alerts slarge";
 					description.innerHTML = this.desc;
 				} else if (this.alert !== null && (this.now >= this.start && this.now < this.end) && (this.date >= this.startDate && this.date <= this.endDate)) {
-					description.className = "orangered alerts medium";
-					description.innerHTML = "<i class=\"fas fa-wind\"></i> " + this.translate("ALERTS") + this.start + "-" + this.end;
+					description.innerHTML = this.desc + "<div class='orangered medium'><i class=\"fas fa-wind\"></i> " + this.translate("ALERTS") + this.start + "-" + this.end + "</div>";
 				} 
 				wrapper.appendChild(description);
 			}
@@ -1764,12 +1770,11 @@ Module.register("onecall", {
 	DomUpdate: function () {
 		if (!this.loaded) { 
 			this.loaded = true;
-		//	this.DomUpdate();
 			var self = this;
 			setTimeout(function () {
 				var empty = "";
 				self.show(self.config.animationSpeed, empty, { lockString: self.identifier });
-			}, 2000);
+			}, this.config.initialLoadDelay);
 		}
 		this.updateDom(this.config.animationSpeed);
 		this.sendSocketNotification('START_DHT_READING', { gpioPin: this.config.gpioPin });
@@ -1792,9 +1797,9 @@ Module.register("onecall", {
 		setInterval(function () {
 			self.OneUpdate();
 			if (self.config.pollutionOneLoader) {
-			//	setTimeout(function () {
+				setTimeout(function () {
 					self.AirUpdate();
-			//	}, 5000);
+				}, self.config.initialLoadDelay);
 			}
 		}, updateInterval);
 	},
