@@ -38,6 +38,7 @@ let config = {
 	location: "București",
 	decimal: ",",
 	animation: 2000,
+	electronOptions: {kiosk: false, fullscreen: true},
 
 	modules: [
 		{
