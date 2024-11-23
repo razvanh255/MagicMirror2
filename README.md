@@ -4,15 +4,11 @@
   <a href="https://choosealicense.com/licenses/mit">
 		<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
 	</a>
-	<img src="https://img.shields.io/github/actions/workflow/status/razvanh255/magicmirror/automated-tests.yaml" alt="GitHub Actions">
+
 	<a href="https://github.com/razvanh255/MagicMirror">
 		<img src="https://img.shields.io/github/stars/razvanh255/magicmirror?style=social">
 	</a>
 </p>
-
-**MagicMirror²** is an open source modular smart mirror platform. With a growing list of installable modules, the **MagicMirror²** allows you to convert your hallway or bathroom mirror into your personal assistant. **MagicMirror²** is built by the creator of [the original MagicMirror] with the incredible help of a [growing community].
-
-MagicMirror² focuses on a modular plugin system and uses [Electron] as an application wrapper. So no more web server or browser installs necessary!
 
 ## Documentation
 
