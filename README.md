@@ -4,10 +4,6 @@
   <a href="https://choosealicense.com/licenses/mit">
 		<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
 	</a>
-
-	<a href="https://github.com/razvanh255/MagicMirror">
-		<img src="https://img.shields.io/github/stars/razvanh255/magicmirror?style=social">
-	</a>
 </p>
 
 ## Documentation
