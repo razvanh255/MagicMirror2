@@ -8,7 +8,7 @@
 
 ## Documentation
 
-For the full documentation including **[installation instructions](https://docs.magicmirror.builders/getting-started/installation.html)**, please visit our dedicated documentation website: [https://docs.magicmirror.builders](https://docs.magicmirror.builders).
+For the full documentation including **[installation instructions](https://docs.magicmirror.builders/getting-started/installation.html)**, please visit dedicated documentation website: [https://docs.magicmirror.builders](https://docs.magicmirror.builders).
 
 ## Links
 
