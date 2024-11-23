@@ -26,4 +26,4 @@ For the full documentation including **[installation instructions](https://docs.
 - Forum: [https://forum.magicmirror.builders](https://forum.magicmirror.builders)
   - Technical discussions: https://forum.magicmirror.builders/category/11/core-system
 - Discord: [https://discord.gg/J5BAtvx](https://discord.gg/J5BAtvx)
-
+- Don't make donation for open source software. 
