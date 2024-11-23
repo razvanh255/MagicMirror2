@@ -4,10 +4,10 @@
   <a href="https://choosealicense.com/licenses/mit">
 		<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
 	</a>
-	<img src="https://img.shields.io/github/actions/workflow/status/razvanh/magicmirror/automated-tests.yaml" alt="GitHub Actions">
-	<img src="https://img.shields.io/github/check-runs/razvanh/magicmirror/master" alt="Build Status">
-	<a href="https://github.com/razvanh/MagicMirror">
-		<img src="https://img.shields.io/github/stars/razvanh/magicmirror?style=social">
+	<img src="https://img.shields.io/github/actions/workflow/status/razvanh255/magicmirror/automated-tests.yaml" alt="GitHub Actions">
+	<img src="https://img.shields.io/github/check-runs/razvanh255/magicmirror/master" alt="Build Status">
+	<a href="https://github.com/razvanh255/MagicMirror">
+		<img src="https://img.shields.io/github/stars/razvanh255/magicmirror?style=social">
 	</a>
 </p>
 
