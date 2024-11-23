@@ -18,3 +18,5 @@ For the full documentation including **[installation instructions](https://docs.
   - Technical discussions: https://forum.magicmirror.builders/category/11/core-system
 - Discord: [https://discord.gg/J5BAtvx](https://discord.gg/J5BAtvx)
 - Don't make donation for open source software. 
+
+https://github.com/razvanh255/MagicMirror/blob/master/192.168.0.110_8080_(FHD).png
