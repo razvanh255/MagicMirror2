@@ -1,8 +1,8 @@
 Module.register("system", {
     defaults: {
-        cpuUpdateInterval: 5000,    // CPU usage and temperature update every 5 second
-        ramUpdateInterval: 10000,   // RAM usage update every 10 seconds
-        diskUpdateInterval: 30000,  // Disk usage update every 30 seconds
+        cpuUpdateInterval: 1000,    // CPU usage and temperature update every 1 second
+        ramUpdateInterval: 5000,   // RAM usage update every 5 seconds
+        diskUpdateInterval: 10000,  // Disk usage update every 10 seconds
 
         // Configurable options to enable/disable specific metrics
         showCpuUsage: true,
