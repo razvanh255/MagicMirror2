@@ -95,7 +95,7 @@ Module.register("onecall", {
 		// DHT22
 		gpioPin: 4,
 		updateSensor: 60 * 1000,
-		temperatureOffset: 0,		// Default temperature offset adjustment
+		temperatureOffset: -1.5,		// Default temperature offset adjustment
 		humidityOffset: 0,			// Default humidity offset adjustment
 		temperatureUnit: 'C',		// Default temperature unit (Celsius)
 		humidityUnit: ' %',
@@ -225,7 +225,7 @@ Module.register("onecall", {
 				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
 				document.querySelector('.indoorTemp').innerHTML = " <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
 				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
-				Log.info('DHT22: H' + payload.humidity + " T" + payload.temperature);
+			//	Log.info('DHT22: H' + payload.humidity + " T" + payload.temperature);
 			} else {
 				Log.warn('Invalid humidity reading:', payload.humidity);
 			}
