@@ -1,10 +1,10 @@
 Module.register("system", {
     defaults: {
         cpuUpdateInterval: 1000,    // CPU usage and temperature update every 1 second
-        ramUpdateInterval: 10000,   // RAM usage update every 10 seconds
+        ramUpdateInterval: 1000,   // RAM usage update every 1 second
         diskUpdateInterval: 30000,  // Disk usage update every 30 seconds
         showGauces: false,
-        showComplex: false,
+        showSimple: true,
 
         // Configurable options to enable/disable specific metrics
         showCpuUsage: true,
@@ -19,6 +19,7 @@ Module.register("system", {
     },
 
     start: function() {
+        Log.info("Starting module: " + this.name);
         this.stats = {
             cpuUsage: 0,  
             cpuTemp: 0,
@@ -88,11 +89,27 @@ Module.register("system", {
         }
     },
 
+    getHeader: function () {
+        if (this.config.showSimple) {
+            return this.Simple;
+        } else
+
+        return this.data.header ? this.data.header : "";
+    },
+
     getDom: function() {
+        this.Simple = `CPU: <strong>${this.stats.cpuUsage}%</strong> Temp: <strong>${this.stats.cpuTemp}ºC</strong> RAM: <strong>${(this.stats.usedRam/this.stats.totalRam*100).toFixed(2)}%</strong>`;
+
         let wrapper = document.createElement("div");
         wrapper.className = "system-stats";
 
-        if (this.config.showComplex) {
+        if (this.config.showSimple) {        
+        //    let usageCpu = document.createElement("div");
+        //    usageCpu.className = "cpu-usage";
+        //    usageCpu.innerHTML = this.Simple;
+        //    wrapper.appendChild(usageCpu);
+        } else {
+
             // CPU Usage Display
             if (this.config.showCpuUsage) {
                 let usageCpu = document.createElement("div");
@@ -163,11 +180,6 @@ Module.register("system", {
                 diskBar.max = this.stats.driveCapacity;
                 wrapper.appendChild(diskBar);
     */
-            } else {
-                let usageCpu = document.createElement("div");
-                usageCpu.className = "cpu-usage";
-                usageCpu.innerHTML = `CPU: <strong>${this.stats.cpuUsage}%</strong> Temp: <strong>${this.stats.cpuTemp}ºC</strong> RAM: <strong>${this.stats.usedRam}MB</strong> SD: <strong>${this.stats.usedSpace}GB</strong>`;
-                wrapper.appendChild(usageCpu);
             }
         }
 
