@@ -1,3 +1,5 @@
+/* https://github.com/razvanh255 */
+
 Module.register("phases", {
     defaults: {
         updateInterval: 60 * 60 * 1000,
