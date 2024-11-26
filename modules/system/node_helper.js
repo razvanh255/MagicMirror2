@@ -48,7 +48,7 @@ module.exports = NodeHelper.create({
             this.lastTotal = total;
 
             this.sendSocketNotification("CPU_USAGE", { cpuUsage });
-        //    console.log("CPU usage fetched successfully.");
+        //  console.log("CPU usage fetched successfully.");
         });
     },
 
@@ -70,7 +70,7 @@ module.exports = NodeHelper.create({
                         cpuTemp: tempC.toFixed(1),
                         cpuTempF: tempF.toFixed(1)
                     });
-            //        console.log("CPU temperature fetched successfully.");
+            //  console.log("CPU temperature fetched successfully.");
                 }
             }
         });
@@ -109,12 +109,14 @@ module.exports = NodeHelper.create({
                 const diskInfo = lines[1].replace(/ +/g, ' ').split(' ');
                 const driveCapacity = diskInfo[1].replace("G", "GB");  // Fix to show "GB"
                 const freeSpace = diskInfo[2].replace("G", "GB");      // Fix to show "GB"
+                const usedSpace = driveCapacity - freeSpace;
 
                 this.sendSocketNotification("DISK_USAGE", {
                     driveCapacity: driveCapacity,
-                    freeSpace: freeSpace
+                    freeSpace: freeSpace,
+                    usedSpace: usedSpace
                 });
-        //        console.log("Disk usage fetched successfully.");
+        //  console.log("Disk usage fetched successfully.");
             }
         });
     }
