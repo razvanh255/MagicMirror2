@@ -1,7 +1,9 @@
 /* MagicMirror² - Quotes Module
  * Redesigned by Răzvan Cristea for iPad 3 & HD display
- * https://github.com/cristearazvanh
+ 
+ * https://github.com/razvanh255
  * Creative Commons BY-NC-SA 4.0, Romania.
+ 
  * Original MagicMirror² MIT Licensed.
  */
 Module.register("quotes", {
@@ -13,10 +15,10 @@ Module.register("quotes", {
 		fadeSpeed: config.animation,
 		quotes: {
 			selected: [
-				"\"Fii tu insuti, toți ceilalți sunt deja luați.\"~ Oscar Wilde ~",
-				"\"Două lucruri sunt infinite: universul și prostia umană și nu sunt sigur de univers.\"~ Albert Einstein ~",
+				"\"Fii tu insuți, toți ceilalți sunt deja luați.\"~ Oscar Wilde ~",
+				"\"Două lucruri sunt infinite: universul și prostia umană dar nu sunt sigur de univers.\"~ Albert Einstein ~",
 				"\"Nimeni nu te poate face să te simți inferior fără acordul tău.\"~ Eleanor Roosevelt ~",
-				"\"Dacă spuneți adevărul, nu trebuie să vă amintiți nimic.\"~ Mark Twain ~",
+				"\"Dacă spui adevărul, nu trebuie să îți amintești ce ai mințit.\"~ Mark Twain ~",
 				"\"Fără muzică, viața ar fi o greșeală.\"~ Friedrich Nietzsche ~",
 				"\"Este mai bine să fii urât pentru ceea ce ești, decât să fii iubit pentru ceea ce nu ești.\"~ Andre Gide ~",
 				"\"Este mai bine să taci riscând să fi considerat prost, decât să vorbești și să înlături orice îndoială.\"~ Maurice Switzer ~",
@@ -47,7 +49,7 @@ Module.register("quotes", {
 				"\"Rămâne ca fiecare să aibă amintirile pe care le merită.\"~ Octavian Paler ~",
 				"\"Viitorul este suma paşilor pe care îi faci, inclusiv a celor mici, ignoraţi sau luaţi în râs.\"~ Henri Coandă ~",
 				"\"Dacă n-ai văzut încă o femeie care iubește, atunci n-ai văzut niciodată o femeie frumoasă.\"~ Camil Petrescu ~",
-				"\"Tragediile, ca şi bucuriile cele mai mari omul le trăieşte întotdeauna singur.\"~ Liviu Rebreanu ~",
+				"\"Tragediile, ca şi bucuriile cele mai mari, omul le trăieşte întotdeauna singur.\"~ Liviu Rebreanu ~",
 				"\"Eșecul este locul de unde te ridici pentru a merge mai departe.\"~ Gabriel Liiceanu ~",
 				"\"Nimic nu poate fi mai îngrozitor pe lume decât să ți se cenzureze vorba, ideea, opinia, viața.\"~ Petre Cristea ~",
 			],
@@ -59,7 +61,7 @@ Module.register("quotes", {
 				"\"Universul nu are nicio obligație să aibă sens pentru oricine.\"~ Neil deGrasse Tyson ~",
 				"\"Trăim pe Pământ, gândește-te la ce ai putea face astăzi sau mâine și profită la maxim.\"~ Neil deGrasse Tyson ~",
 				"\"În cele din urmă, cercetarea științifică se aplică la ceva. Doar nu știm la momentul respectiv.\"~ Neil deGrasse Tyson ~",
-				"\"Trăim într-o societate în care, în aproape toate cazurile, munca grea este răsplătită.\"~ Neil deGrasse Tyson ~",
+				"\"Trăim într-o societate în care, în aproape toate cazurile, munca cinstită este răsplătită.\"~ Neil deGrasse Tyson ~",
 				"\"Nu sunt suficienți toți oameni din lume care au o perspectivă cosmică. Dar ei pot schimba viața.\"~ Neil deGrasse Tyson ~",
 				"\"De secole, magii au profitat intuitiv de funcționările interioare ale creierului nostru.\"~ Neil deGrasse Tyson ~",
 				"\"Ne definim pe noi înșine ca inteligenți. Este ciudat, pentru că ne creăm propria definiție.\"~ Neil deGrasse Tyson ~",
@@ -73,14 +75,14 @@ Module.register("quotes", {
 			motivational: [
 				"\"Nu ești niciodată prea bătrân pentru a-ți stabili un alt obiectiv sau pentru a visa un nou vis.\"~ C. S. Lewis ~",
 				"\"Oamenii care te influențează sunt oamenii care cred în tine.\"~ Henry Drummond ~",
-				"\"Nu ar trebui să renunțăm și nu ar trebui să permitem ca o problema să ne învingă.\"~ Abdul Kalam ~",
+				"\"Nu ar trebui să renunțăm și nu ar trebui să permitem ca o problemă să ne învingă.\"~ Abdul Kalam ~",
 				"\"Fă-ți munca cu toată inima și vei reuși - există atât de puțină concurență.\"~ Elbert Hubbard ~",
-				"\"Nu aștepta să lovești până când fierul este fierbinte, ci fa-l fierbinte lovindu-l.\"~ William Butler Yeats ~",
+				"\"Nu aștepta să lovești până când fierul este fierbinte, ci fă-l fierbinte lovindu-l.\"~ William Butler Yeats ~",
 				"\"Îmi place argumentul, dezbaterea. Nu mă aștept ca cineva să fie de acord cu mine.\"~ Margaret Thatcher ~",
 			],
 			positive: [
 				"\"Eșecul te îmbunătățește. De asemenea, este important să accepți că vei face greșeli.\"~ Alain Ducasse ~",
-				"\"Avem de ales și uneori pare greu, dar cea mai bună metodă de a vindeca este să-ți păstrezi optimismul.\"~ Petra Nemcova ~",
+				"\"Avem de ales și uneori pare greu, dar cea mai bună metodă de a te vindeca este să-ți păstrezi optimismul.\"~ Petra Nemcova ~",
 				"\"Spune și fă ceva pozitiv care să ajute situația; nu este nevoie să te plângi.\"~ Robert A. Cook ~",
 			],
 			success: [
@@ -93,18 +95,18 @@ Module.register("quotes", {
 			],
 			other: [
 				"\"Singurătatea este un semn că ai nevoie disperată de tine.\"~ Rupi Kaur ~",
-				"\"S-ar putea ca oamenii să nu vă spună ce simt despre voi, dar vă arată întotdeauna.\"~ Keri Hilson ~",
+				"\"S-ar putea ca oamenii să nu îți spună ce simt despre tine, dar îți arată întotdeauna.\"~ Keri Hilson ~",
 				"\"Uneori tot ce ai nevoie este de câteva secunde de curaj nebun.\"~ Benjamin Mee ~",
 				"\"Este mult mai ușor să fii supărat pe cineva decât să-i spui că ești rănit.\"~ Tom Gates ~",
 				"\"Respectă-te suficient pentru a te îndepărta de orice nu te mai servește sau nu te face fericit.\"~ Robert Tew ~",
 				"\"Nu devii mai bun încercând să fii bun, ci găsind bunătatea care este deja în tine.\"~ Eckhart Tolle ~",
-				"\"Timpul rezolvă cele mai multe lucruri. Și ce timpul nu poate rezolva, trebuie să rezolvați singur.\"~ Haruki Murakami ~",
+				"\"Timpul rezolvă cele mai multe lucruri. Și ce timpul nu poate rezolva, trebuie să rezolvi singur.\"~ Haruki Murakami ~",
 				"\"Nicio vinovăție nu poate schimba trecutul și nici o îngrijorare nu poate schimba viitorul.\"~ Umar Ibn Al-Khattaab ~",
 				"\"Fii suficient de încrezător în acțiunile tale pentru a nu fi nevoie să te explici. Credee și acționează.\"~ Bernard Roth ~",
 				"\"Nu ești o picătură în ocean. Ești întregul ocean într-o picătură.\"~ Jalal ad-Din Muhammad Balkhi ~",
 				"\"Oriunde ai fi și orice ai face, fii îndrăgostit.\"~ Jalal ad-Din Muhammad Balkhi ~",
 				"\"Oamenii vor uita ce ai spus, ce ai făcut, dar nu vor uita niciodată cum i-ai făcut să se simtă.\"~ Maya Angelou ~",
-				"\"Dacă toată lumea și-ar vedea de propria treabă, lumea ar merge cu mult mai repede decât o face.\"~ Lewis Carroll ~",
+				"\"Dacă toată lumea și-ar vedea de propria treabă, lumea ar merge cu mult mai bine.\"~ Lewis Carroll ~",
 			],
          }
     },
@@ -156,7 +158,7 @@ Module.register("quotes", {
 
         var quoteAuthor = document.createElement("span");
         quoteAuthor.className = this.config.className + " author";
-        quoteAuthor.innerHTML = "&nbsp;~ " + (quoteObj.author || "");
+        quoteAuthor.innerHTML = "<br>~ " + (quoteObj.author || "");
         wrapper.appendChild(quoteAuthor);
 
         return wrapper;

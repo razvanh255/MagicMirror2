@@ -1,3 +1,5 @@
+/* https://github.com/razvanh255 */
+
 Module.register("imagers", {
     defaults: {
         updateInterval: 45000,

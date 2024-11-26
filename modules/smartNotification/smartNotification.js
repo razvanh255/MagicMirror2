@@ -1,3 +1,5 @@
+/* https://github.com/razvanh255 */
+
 Module.register("smartNotification", {
     defaults: {
         showStatus: true,
@@ -175,9 +177,12 @@ Module.register("smartNotification", {
             var below = document.querySelector('.below');
             if (!below) return;
             
-            below.style.backgroundImage = "url('css/lcars/lcars01.jpg')";
+            below.style.backgroundImage = "url(" + this.config.dynamicBackground + ")";
+            below.style.backgroundSize = "70%";
+            below.style.backgroundPosition = "center 40%";
+            below.style.backgroundRepeat = "no-repeat";
             
-            setInterval(() => {
+    /*        setInterval(() => {
                 var date = new Date();
                 var currentHour = date.getHours();
                 var currentMinute = date.getMinutes();
@@ -203,7 +208,7 @@ Module.register("smartNotification", {
                 }
 
             }, 5000);
-        }
+    */    }
     },
 
     scheduleBrightness: function () {
