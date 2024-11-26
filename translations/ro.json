@@ -45,7 +45,7 @@
 	"MODULE_ERROR_MALFORMED_URL": "Adresă greșită.",
 	"MODULE_ERROR_NO_CONNECTION": "Fără conecxiune.",
 	"MODULE_ERROR_UNAUTHORIZED": "Autorizare eșuată.",
-	"MODULE_ERROR_UNSPECIFIED": "Verifocă logurile pentru detalii.",
+	"MODULE_ERROR_UNSPECIFIED": "Verifică logurile pentru detalii.",
 
 	"NEWSFEED_NO_ITEMS": "Nicio știre pentru moment.",
 	"UPDATE_NOTIFICATION_DONE": "Update realizat pentru {MODULE_NAME}",
