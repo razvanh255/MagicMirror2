@@ -5,9 +5,9 @@ Module.register("smartNotification", {
         showStatus: true,
         dynamicBackground: false,
         dimInterval: 10,
-        dimLevel: 50,
-        dimStart: "23:50",
-        dimEnd: "05:50",
+        dimLevel: 0.5,
+        dimStart: "00:00",
+        dimEnd: "07:00",
         rotation: false,
         format: 16/9,
         sharpMode: false,
@@ -36,6 +36,7 @@ Module.register("smartNotification", {
     },
 
     start: function () {
+        Log.info("Starting module: " + this.name);
         document.body.style.opacity = 0;
         this.isOnline = navigator.onLine;
         this.scheduleNotifications();
@@ -72,6 +73,7 @@ Module.register("smartNotification", {
             const currentMonth = now.getMonth() + 1;
             const currentDay = now.getDate();
             const currentHour = now.getHours();
+            const currentMinute = now.getMinutes();
 
             this.config.notifications.forEach(notification => {
                 if (notification.month !== null && notification.day !== null) {
@@ -180,113 +182,48 @@ Module.register("smartNotification", {
             below.style.backgroundImage = "url(" + this.config.dynamicBackground + ")";
             below.style.backgroundSize = "70%";
             below.style.backgroundPosition = "center 40%";
-            below.style.backgroundRepeat = "no-repeat";
-            
-    /*        setInterval(() => {
-                var date = new Date();
-                var currentHour = date.getHours();
-                var currentMinute = date.getMinutes();
-                var currentMinute = date.getMinutes();
-                
-                var periods = [
-                    { startHour: 6, startMinute: 0, endHour: 23, endMinute: 59, image: "css/lcars/lcars01.jpg", transition: "5s" },
-                    { startHour: 0, startMinute: 0, endHour: 5, endMinute: 59, image: "css/lcars/lcars02.jpg", transition: "2s" }
-                ];
-
-                for (var i = 0; i < periods.length; i++) {
-                    var period = periods[i];
-                    if (
-                        (currentHour > period.startHour || 
-                        (currentHour === period.startHour && currentMinute >= period.startMinute)) &&
-                        (currentHour < period.endHour || 
-                        (currentHour === period.endHour && currentMinute < period.endMinute))
-                    ) {
-                        below.style.backgroundImage = "url('" + period.image + "')";
-                        below.style.transition = "background-image " + period.transition + " ease-in-out";
-                        break;
-                    }
-                }
-
-            }, 5000);
-    */    }
+            below.style.backgroundRepeat = "no-repeat";        
+        }
     },
 
     scheduleBrightness: function () {
-        this.scheduleBrightnessChange(this.config.dimStart, this.config.dimLevel);
-        this.scheduleBrightnessChange(this.config.dimEnd, 100); // 100% pentru restaurare
-    },
+        var body = document.querySelector("body");
+        body.style.transition = "opacity 10s ease-in-out";
+        var dimLevel = this.config.dimLevel;
+        var dimStart = this.config.dimStart;
+        var dimEnd = this.config.dimEnd;
 
-    scheduleBrightnessChange: function (timeConfig, targetLevel) {
-        if (!timeConfig) {
-            console.error("timeConfig is undefined or null");
-            return; // Iese din funcție dacă timeConfig nu este definit
-        }
-
-        let [hour, minute] = timeConfig.split(":").map(Number);
-        let now = new Date();
-        let changeTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, 0, 0);
-
-        if (changeTime <= now) {
-            changeTime.setDate(now.getDate() + 1);
-        }
-
-        let timeToChange = changeTime - now;
-        setTimeout(() => {
-            this.fadeBrightness(targetLevel);
-            this.scheduleBrightnessChange(timeConfig, targetLevel); // Reprogramare zilnică
-        }, timeToChange);
-    },
-/*
-    fadeBrightness: function (targetLevel) {
-        let currentBrightness = parseFloat(document.body.style.opacity) || 1; // Obține luminozitatea curentă
-        let step = (targetLevel / 100 - currentBrightness) / 60; // Calculul pașilor pentru tranziție de 60 de secunde
-
-        let fadeInterval = setInterval(() => {
-            currentBrightness += step;
-
-            // Asigură-te că luminozitatea nu depășește limitele
-            if ((step > 0 && currentBrightness >= targetLevel / 100) || (step < 0 && currentBrightness <= targetLevel / 100)) {
-                currentBrightness = targetLevel / 100; // Setează luminozitatea la nivelul țintă
-                clearInterval(fadeInterval); // Oprește intervalul odată ce s-a ajuns la țintă
+        setInterval(function () {
+            function parseTime(timeString) {
+                var parts = timeString.split(":");
+                return {
+                    hour: parseInt(parts[0], 10),
+                    minute: parseInt(parts[1], 10)
+                };
             }
-            
-            document.body.style.opacity = currentBrightness; // Aplică luminozitatea curentă
-        }, 1000); // Actualizează fiecare secundă
-    },
-*/
-    fadeBrightness: function (targetLevel, startTime) {
-        let currentBrightness = parseFloat(document.body.style.opacity) || 1; // Obține luminozitatea curentă
-        let step = (targetLevel / 100 - currentBrightness) / 60; // Calculul pașilor pentru tranziție de 60 de secunde
 
-        const applyFade = () => {
-            let fadeInterval = setInterval(() => {
-                currentBrightness += step;
+            var start = parseTime(dimStart);
+            var end = parseTime(dimEnd);
 
-                // Asigură-te că luminozitatea nu depășește limitele
-                if ((step > 0 && currentBrightness >= targetLevel / 100) || (step < 0 && currentBrightness <= targetLevel / 100)) {
-                    currentBrightness = targetLevel / 100; // Setează luminozitatea la nivelul țintă
-                    clearInterval(fadeInterval); // Oprește intervalul odată ce s-a ajuns la țintă
+            function isCurrentTimeBetween(start, end) {
+                var now = new Date();
+                var currentMinutes = now.getHours() * 60 + now.getMinutes();
+                var startMinutes = start.hour * 60 + start.minute;
+                var endMinutes = end.hour * 60 + end.minute;
+                return currentMinutes >= startMinutes && currentMinutes < endMinutes;
+            }
+
+            function checkAndChangeOpacity() {
+                if (isCurrentTimeBetween(start, end)) {
+                    body.style.opacity = dimLevel;
+                    console.info("Luminozitatea scăzută la nivelul specificat.");
+                } else {
+                    body.style.opacity = 1;
                 }
+            }
 
-                document.body.style.opacity = currentBrightness; // Aplică luminozitatea curentă
-            }, 1000); // Actualizează fiecare secundă
-        };
-
-        // Verifică dacă timpul de start a trecut
-        const now = new Date();
-        const start = new Date(startTime);
-
-        if (now >= start) {
-            applyFade(); // Execută tranziția direct
-        } else {
-            // Ascultă evenimentul DOMContentLoaded
-            document.addEventListener("DOMContentLoaded", () => {
-                const nowAfterLoad = new Date();
-                if (nowAfterLoad >= start) {
-                    applyFade();
-                }
-            });
-        }
+            checkAndChangeOpacity();
+        }, 1000);
     },
 
     scheduleHideModules: function () {
