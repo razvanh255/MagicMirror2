@@ -124,7 +124,7 @@ Module.register("phases", {
             { limit: 25, image: 'wanecres38.png', phase: "waning_crescent" },
             { limit: 25.5, image: 'wanecres28.png', phase: "waning_crescent" },
             { limit: 26, image: 'wanecres25.png', phase: "waning_crescent" },
-            { limit: 26.5, image: 'wanecresb19.png', phase: "waning_crescent" },
+            { limit: 26.5, image: 'wanecres19.png', phase: "waning_crescent" },
             { limit: 27, image: 'wanecres17.png', phase: "waning_crescent" },
             { limit: 27.5, image: 'wanecres15.png', phase: "waning_crescent" },
             { limit: 28, image: 'wanecres12.png', phase: "waning_crescent" },
