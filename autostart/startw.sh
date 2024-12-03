@@ -9,6 +9,8 @@ if grep -q "42" /tmp/keylog || grep -q "54" /tmp/keylog; then
 else echo "Start script"
 cd ..
 cd /home/razvanh/MagicMirror
-lxteeminal -e npm run server &
+export MM_CONFIG_FILE=config/config3.js
+lxterminal -e npm run server &
+export MM_CONFIG_FILE=config/config.js
 lxterminal -e npm run start:wayland &
 fi
