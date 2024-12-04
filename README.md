@@ -19,4 +19,4 @@ For the full documentation including **[installation instructions](https://docs.
 - Discord: [https://discord.gg/J5BAtvx](https://discord.gg/J5BAtvx)
 - Don't make donation for open source software. 
 
-<img src=https://github.com/razvanh255/MagicMirror/blob/master/192.168.0.110_8080_(FHD).png width=50%>
+<img src=https://github.com/razvanh255/MagicMirror2/blob/master/192.168.0.110_8080_(FHD).png width=50%>
