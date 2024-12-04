@@ -36,13 +36,11 @@ MagicMirror² configuration
   <br></br>
 <br><br>
 <table style='border:0'><tr><td>
-<img src=https://github.com/razvanh255/MM-modules/blob/main/classic.png width=300>
+<img src=https://github.com/razvanh255/MagicMirror2/blob/master/classic.png width=50%>
 </td><td>
-<img src=https://github.com/razvanh255/MM-modules/blob/main/startrek.png width=300>
+<img src=https://github.com/razvanh255/MagicMirror2/blob/master/startrek.png width=50%>
+</td><td>
+<img src=https://github.com/razvanh255/MagicMirror2/blob/master/nudeart.png width=50%>
 </td></tr></table>
 
 Designed by Răzvan Cristea https://github.com/razvanh255 Creative Commons BY-NC-SA 4.0, Romania.
-
-<img src=https://github.com/razvanh255/MagicMirror2/blob/master/classic.png width=50%>
-<img src=https://github.com/razvanh255/MagicMirror2/blob/master/startrek.png width=50%>
-<img src=https://github.com/razvanh255/MagicMirror2/blob/master/nudeart.png width=50%>
