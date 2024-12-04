@@ -30,7 +30,7 @@ MagicMirror² configuration
 <li>MagicMirror² multiple config files
   <br>
   <br>MagicMirror² has become very sluggish on older systems, it struggles with Electron, Cromium or Firefox and runs horribly.
-  <br>I finally managed to put together an application with custom modules that moves quite decently.
+  I finally managed to put together an application with custom modules that moves quite decently.
   <br>There are too many questions and few answers, without too much help from so-called developers. 
   <br>Sadly in this community you are on your own.
   <br></br>
