@@ -98,16 +98,11 @@ Module.register("system", {
     },
 
     getDom: function() {
-        this.Simple = `CPU: <strong>${this.stats.cpuUsage}%</strong> Temp: <strong>${this.stats.cpuTemp}ºC</strong> RAM: <strong>${(this.stats.usedRam/this.stats.totalRam*100).toFixed(2)}%</strong>`;
-
         let wrapper = document.createElement("div");
         wrapper.className = "system-stats";
 
         if (this.config.showSimple) {        
-        //    let usageCpu = document.createElement("div");
-        //    usageCpu.className = "cpu-usage";
-        //    usageCpu.innerHTML = this.Simple;
-        //    wrapper.appendChild(usageCpu);
+            this.Simple = `CPU: <strong>${this.stats.cpuUsage}%</strong> Temp: <strong>${this.stats.cpuTemp}ºC</strong> RAM: <strong>${(this.stats.usedRam/this.stats.totalRam*100).toFixed(2)}%</strong>`;
         } else {
 
             // CPU Usage Display
