@@ -17,6 +17,32 @@ For the full documentation including **[installation instructions](https://docs.
 - Forum: [https://forum.magicmirror.builders](https://forum.magicmirror.builders)
   - Technical discussions: https://forum.magicmirror.builders/category/11/core-system
 - Discord: [https://discord.gg/J5BAtvx](https://discord.gg/J5BAtvx)
-- Don't make donation for open source software. 
+- Don't make donation for open source software.
 
-<img src=https://github.com/razvanh255/MagicMirror2/blob/master/192.168.0.110_8080_(FHD).png width=50%>
+# Custom made MagicMirror²
+
+MagicMirror² configuration
+<li>Raspberry Pi 3B plus iPad3
+<li>64GB SD card
+<li>32bit Bookworm OS with Wayland desktop
+<li>DHT22 sensor
+<li>24" HD monitor
+<li>MagicMirror² multiple config files
+  <br>
+  <br>MagicMirror² has become very sluggish on older systems, it struggles with Electron, Cromium or Firefox and runs horribly.
+  <br>I finally managed to put together an application with custom modules that moves quite decently.
+  <br>There are too many questions and few answers, without too much help from so-called developers. 
+  <br>Sadly in this community you are on your own.
+  <br></br>
+<br><br>
+<table style='border:0'><tr><td>
+<img src=https://github.com/razvanh255/MM-modules/blob/main/classic.png width=300>
+</td><td>
+<img src=https://github.com/razvanh255/MM-modules/blob/main/startrek.png width=300>
+</td></tr></table>
+
+Designed by Răzvan Cristea https://github.com/razvanh255 Creative Commons BY-NC-SA 4.0, Romania.
+
+<img src=https://github.com/razvanh255/MagicMirror2/blob/master/classic.png width=50%>
+<img src=https://github.com/razvanh255/MagicMirror2/blob/master/startrek.png width=50%>
+<img src=https://github.com/razvanh255/MagicMirror2/blob/master/nudeart.png width=50%>
