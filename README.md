@@ -19,7 +19,7 @@ For the full documentation including **[installation instructions](https://docs.
 - Discord: [https://discord.gg/J5BAtvx](https://discord.gg/J5BAtvx)
 - Don't make donation for open source software.
 
-# Custom made MagicMirror²
+# Modified MagicMirror²
 
 MagicMirror² configuration
 <li>Raspberry Pi 3B plus iPad3
