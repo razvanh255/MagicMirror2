@@ -98,7 +98,7 @@ Module.register("onecall", {
 		temperatureOffset: -1.5,		// Default temperature offset adjustment
 		humidityOffset: 0,			// Default humidity offset adjustment
 		temperatureUnit: 'C',		// Default temperature unit (Celsius)
-		humidityUnit: ' %',
+		humidityUnit: '%',
 
 		iconTable: {
 			"01d": "day-sunny",
@@ -223,8 +223,8 @@ Module.register("onecall", {
 
 				this.indoorTemperature = temperature;
 				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
-				document.querySelector('.indoorTemp').innerHTML = " <i class=\"fa fa-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
-				document.querySelector('.indoorHum').innerHTML = " <i class=\"fa fa-tint skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
+				document.querySelector('.indoorTemp').innerHTML = " <i class=\"wi wi-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
+				document.querySelector('.indoorHum').innerHTML = " <i class=\"wi-humidity skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
 			//	Log.info('DHT22: H' + payload.humidity + " T" + payload.temperature);
 			} else {
 				Log.warn('Invalid humidity reading:', payload.humidity);
@@ -235,9 +235,9 @@ Module.register("onecall", {
 	convertTemperature: function(celsiusTemperature) {
 		// Conversion formula from Celsius to Fahrenheit
 		if (this.config.temperatureUnit === 'F') {
-			return ((celsiusTemperature * 9/5 + 32).toFixed(1) + ' °F');
+			return ((celsiusTemperature * 9/5 + 32).toFixed(1) + '°F');
 		}
-		return (celsiusTemperature.toFixed(1) + ' °C'); // Default to Celsius
+		return (celsiusTemperature.toFixed(1) + '°C'); // Default to Celsius
 	},
 
 	// add extra information of current weather
@@ -764,19 +764,19 @@ Module.register("onecall", {
 					}
 
 					var maxTempCell = document.createElement("div");
-					maxTempCell.innerHTML = "<i class=\"fa fa-thermometer\"></i> " + forecast.maxTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
+					maxTempCell.innerHTML = "<i class=\"wi wi-thermometer\"></i> " + forecast.maxTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
 					maxTempCell.className = "maxtemp coral medium";
 					item.appendChild(maxTempCell);
 
 					var minTempCell = document.createElement("div");
-					minTempCell.innerHTML = "<i class=\"fa fa-thermometer\"></i> " + forecast.minTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
+					minTempCell.innerHTML = "<i class=\"wi wi-thermometer\"></i> " + forecast.minTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
 					minTempCell.className = "mintemp skyblue medium";
 					item.appendChild(minTempCell);
 
 					if (this.config.dailyDesc) {
 						var dailyDesc = document.createElement("span");
 						dailyDesc.innerHTML = "<span class='desc'>" + forecast.dailyDesc + '</span>';
-						dailyDesc.className = "forecast-description medium";
+						dailyDesc.className = "forecast-description smedium";
 						item.appendChild(dailyDesc);
 					}
 
@@ -1063,7 +1063,7 @@ Module.register("onecall", {
 					}
 
 					var medTempCell = document.createElement("div");
-					medTempCell.innerHTML = "<i class=\"fa fa-thermometer\"></i> " + forecast.hourTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
+					medTempCell.innerHTML = "<i class=\"wi wi-thermometer\"></i> " + forecast.hourTemp.replace(".", this.config.decimalSymbol) + degreeLabel;
 					medTempCell.className = "dayTemp yellow medium";
 					item.appendChild(medTempCell);
 
