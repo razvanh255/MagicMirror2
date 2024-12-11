@@ -1,4 +1,7 @@
-/* https://github.com/razvanh255 */
+/* 
+* https://github.com/razvanh255 
+* Experimental Module
+*/
 
 Module.register("smartNotification", {
     defaults: {
@@ -13,6 +16,8 @@ Module.register("smartNotification", {
         sharpMode: false,
         hideModulesTime: "00:00",
         showModulesTime: "00:00",
+        reload: true,
+        reloadTime: 59 * 60 * 1000,
         modulesToHide: [],
         notifications: [
             {
@@ -39,19 +44,22 @@ Module.register("smartNotification", {
         Log.info("Starting module: " + this.name);
         document.body.style.opacity = 0;
         this.isOnline = navigator.onLine;
-        this.scheduleNotifications();
-        this.scheduleHourlyNotifications();
-        this.checkTimeNotification();
-        this.dynamicBackground();
+    //  this.scheduleNotifications();
+    //  this.scheduleHourlyNotifications();
+    //  this.checkTimeNotification();
+    //  this.dynamicBackground();
         this.scheduleBrightness();
-        this.scheduleHideModules();
-        this.scheduleShowModules();
+    //  this.scheduleHideModules();
+    //  this.scheduleShowModules();
         this.checkOnlineStatus();
         this.adjustZoom();
+        this.reloadPage();
         window.addEventListener("resize", this.adjustZoom.bind(this));
+        window.addEventListener('mousemove', this.showCursor.bind(this));
+        window.removeEventListener('click', this.showCursor.bind(this));
         var self = this;
         setTimeout(function() {
-            document.body.style.transition = "opacity 2s ease-in-out";
+            document.body.style.transition = "opacity 10s ease-in-out";
             document.body.style.opacity = 1;
             if (self.config.rotation) {
                 self.rotatePage();
@@ -63,6 +71,14 @@ Module.register("smartNotification", {
         return [
                 //  "fontawesome.css"
                 ];
+    },
+
+    showCursor: function () {
+        var html = document.querySelector("html");
+        html.style.cursor = "auto";
+        setTimeout(function() {
+            html.style.cursor = "none";
+        }, 10000);
     },
 
     scheduleNotifications: function () {
@@ -188,7 +204,6 @@ Module.register("smartNotification", {
 
     scheduleBrightness: function () {
         var body = document.querySelector("body");
-        body.style.transition = "opacity 10s ease-in-out";
         var dimLevel = this.config.dimLevel;
         var dimStart = this.config.dimStart;
         var dimEnd = this.config.dimEnd;
@@ -216,14 +231,15 @@ Module.register("smartNotification", {
             function checkAndChangeOpacity() {
                 if (isCurrentTimeBetween(start, end)) {
                     body.style.opacity = dimLevel;
-                    console.info("Luminozitatea scăzută la nivelul specificat.");
+                    const compStyles = window.getComputedStyle(body);
+                //    log.info(`Luminozitatea scăzută la: ${compStyles.getPropertyValue("opacity")}%`);
                 } else {
                     body.style.opacity = 1;
                 }
             }
 
             checkAndChangeOpacity();
-        }, 1000);
+        }, 60 * 1000);
     },
 
     scheduleHideModules: function () {
@@ -338,5 +354,13 @@ Module.register("smartNotification", {
 
         checkStatus();
         setInterval(checkStatus, 1000);
+    },
+
+    reloadPage: function () {
+        if (this.config.reload) {
+            setTimeout(() => {
+               location.reload();
+            }, this.config.reloadTime);
+        }
     }
 });
