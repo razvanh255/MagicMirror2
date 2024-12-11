@@ -28,9 +28,12 @@
   --gap-modules: 30px;
 }
 
-html {
-  cursor: default;
-}
+body, *, :before, :after {
+ transition-property: none !important;
+ transition: 0 !important;
+ animation: none !important;
+ animation-duration: 0 !important;
+ }
 
 .hidden {
   display: none;
@@ -46,6 +49,11 @@ html {
 
 .region.fullscreen.below {
   background-size: cover;
+}
+
+.region.fullscreen.above {
+  background-color: black;
+  opacity: 0;
 }
 
 .orange {
@@ -73,8 +81,10 @@ html {
 }
 
 header {
+  width: 100%;
   font-size: 1rem;
   line-height: 1.2;
+  border-bottom: 1px solid darkred;
 }
 
 .xmedium {
@@ -103,8 +113,9 @@ header {
   display: none !important;
 }
 
-.onecall, .weather {
-  max-width: 400px;
+.onecall, .weather,
+.calendar {
+  max-width: 420px;
 }
 
 .weather tr.colored .min-temp {
@@ -116,7 +127,7 @@ header {
 }
 
 .clock {
-  min-width: 400px;
+  min-width: 420px;
 }
 
 .calendar .symbol {
@@ -167,11 +178,26 @@ header {
 .alert-blur {
   filter: blur(2px) brightness(50%);
 }
-/*
+
 @media (max-height: 1280px) {
-  .compliments,
+  body {
+    transform: rotate(90deg);
+    transform-origin: bottom right;
+    position: absolute;
+    bottom: 0;
+    right: 96%;
+    height: 121vw;
+    width: 118vh;
+  }
+
+  .region.middle.center {
+    top: 82%;
+  }
+  
   .quotes,
-  .newsfeed {
-    visibility: hidden;
+  .multimonth .month:nth-child(n+2),
+  .calendar table tr:nth-child(n+10),
+  .onecall .daily .item:nth-child(n+4) {
+    display: none;
   }
 }
