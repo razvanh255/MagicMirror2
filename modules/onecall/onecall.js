@@ -224,7 +224,7 @@ Module.register("onecall", {
 				this.indoorTemperature = temperature;
 				this.indoorHumidity = humidity.toFixed(1) + this.config.humidityUnit;
 				document.querySelector('.indoorTemp').innerHTML = " <i class=\"wi wi-thermometer orange\"></i> " + this.indoorTemperature.replace(".", this.config.decimalSymbol);
-				document.querySelector('.indoorHum').innerHTML = " <i class=\"wi-humidity skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
+				document.querySelector('.indoorHum').innerHTML = " <i class=\"wi wi-humidity skyblue\"></i> " + this.indoorHumidity.replace(".", this.config.decimalSymbol);
 			//	Log.info('DHT22: H' + payload.humidity + " T" + payload.temperature);
 			} else {
 				Log.warn('Invalid humidity reading:', payload.humidity);
