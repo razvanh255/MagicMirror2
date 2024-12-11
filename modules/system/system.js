@@ -1,8 +1,8 @@
 Module.register("system", {
     defaults: {
         cpuUpdateInterval: 1000,    // CPU usage and temperature update every 1 second
-        ramUpdateInterval: 1000,   // RAM usage update every 1 second
-        diskUpdateInterval: 30000,  // Disk usage update every 30 seconds
+        ramUpdateInterval: 10000,   // RAM usage update every 10 seconds
+        diskUpdateInterval: 60000,  // Disk usage update every 60 seconds
         showGauces: false,
         showSimple: true,
 
@@ -98,11 +98,13 @@ Module.register("system", {
     },
 
     getDom: function() {
+        this.Simple = `CPU: <strong>${this.stats.cpuUsage}%</strong> Temp: <strong>${this.stats.cpuTemp}ºC</strong> RAM: <strong>${(this.stats.usedRam/this.stats.totalRam*100).toFixed(2)}%</strong>`;
+
         let wrapper = document.createElement("div");
         wrapper.className = "system-stats";
 
-        if (this.config.showSimple) {        
-            this.Simple = `CPU: <strong>${this.stats.cpuUsage}%</strong> Temp: <strong>${this.stats.cpuTemp}ºC</strong> RAM: <strong>${(this.stats.usedRam/this.stats.totalRam*100).toFixed(2)}%</strong>`;
+        if (this.config.showSimple) {
+            
         } else {
 
             // CPU Usage Display
