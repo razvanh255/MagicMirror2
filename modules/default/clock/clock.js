@@ -27,6 +27,7 @@ Module.register("clock", {
 
 		showSunTimes: false,
 		showMoonTimes: false, // options: false, 'times' (rise/set), 'percent' (lit percent), 'phase' (current phase), or 'both' (percent & phase)
+		showRomanYear: true,
 		lat: config.lat,
 		lon: config.lon
 	},
@@ -118,8 +119,8 @@ Module.register("clock", {
 		dateWrapper.className = "date normal medium";
 		timeWrapper.className = "time bright xxlarge light";
 		secondsWrapper.className = "seconds dimmed";
-		sunWrapper.className = "sun dimmed xmedium";
-		moonWrapper.className = "moon dimmed xmedium";
+		sunWrapper.className = "sun dimmed medium";
+		moonWrapper.className = "moon dimmed medium";
 		weekWrapper.className = "week dimmed medium";
 
 		// Set content of wrappers.
@@ -216,8 +217,31 @@ Module.register("clock", {
 			digitalWrapper.appendChild(moonWrapper);
 		}
 
+		if (this.config.showRomanYear) {
+			function integer_to_roman(num) {
+				if (typeof num !== 'number') 
+				return false; 
+
+				var digits = String(+num).split(""),
+				key = ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM",
+				"","X","XX","XXX","XL","L","LX","LXX","LXXX","XC",
+				"","I","II","III","IV","V","VI","VII","VIII","IX"],
+				roman_num = "",
+				i = 3;
+				while (i--)
+				roman_num = (key[+digits.pop() + (i * 10)] || "") + roman_num;
+				return Array(+digits.join("") + 1).join("M") + roman_num;
+			}
+
+//			var romanYear = document.createElement("div");
+//			romanYear.className = "romanYear medium dark";
+//			romanYear.style.paddingTop = "25%";
+//			romanYear.innerHTML = integer_to_roman(now.year());
+//			clockFace.appendChild(romanYear);
+		}
+
 		if (this.config.showWeek) {
-			weekWrapper.innerHTML = this.translate("DAY", { dayNumber: now.dayOfYear() }) + " din " + this.translate("WEEK", { weekNumber: now.week() });
+			weekWrapper.innerHTML = this.translate("DAY", { dayNumber: now.dayOfYear() }) + " din " + this.translate("WEEK", { weekNumber: now.week() }) + ", " + integer_to_roman(now.year());
 			//+ ", " + config.location;
 			digitalWrapper.appendChild(weekWrapper);
 		}
