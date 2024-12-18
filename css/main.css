@@ -71,7 +71,7 @@ body {
 
 .medium {
   font-size: var(--font-size-medium);
-  line-height: 1.225;
+  line-height: 1.5;
 }
 
 .large {

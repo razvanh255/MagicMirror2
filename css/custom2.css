@@ -75,6 +75,7 @@ html {
 header {
   font-size: 1rem;
   line-height: 1.2;
+  border-bottom: 1px solid darkred;
 }
 
 .xmedium {
@@ -117,6 +118,10 @@ header {
 
 .clock {
   min-width: 400px;
+}
+
+.calendar {
+  max-width: 400px;
 }
 
 .calendar .symbol {

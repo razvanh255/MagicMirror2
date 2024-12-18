@@ -28,32 +28,24 @@
   --gap-modules: 30px;
 }
 
-body, *, :before, :after {
- transition-property: none !important;
- transition: 0 !important;
- animation: none !important;
- animation-duration: 0 !important;
- }
+html {
+  cursor: default;
+}
 
 .hidden {
   display: none;
 }
 
 .region.middle.center {
-  top: 75%;
+  top: 72%;
 }
 
 .region.lower.third {
-  top: 82%;
+  top: 80%;
 }
 
 .region.fullscreen.below {
   background-size: cover;
-}
-
-.region.fullscreen.above {
-  background-color: black;
-  opacity: 0;
 }
 
 .orange {
@@ -81,7 +73,6 @@ body, *, :before, :after {
 }
 
 header {
-  width: 100%;
   font-size: 1rem;
   line-height: 1.2;
   border-bottom: 1px solid darkred;
@@ -113,8 +104,7 @@ header {
   display: none !important;
 }
 
-.onecall, .weather,
-.calendar {
+.onecall, .weather {
   max-width: 420px;
 }
 
@@ -126,8 +116,12 @@ header {
   color: orangered;
 }
 
-.clock-grid, .digital {
-  min-width: 420px;
+.clock {
+  min-width: 400px;
+}
+
+.calndar {
+  max-width: 420px;
 }
 
 .calendar .symbol {
@@ -178,26 +172,11 @@ header {
 .alert-blur {
   filter: blur(2px) brightness(50%);
 }
-
+/*
 @media (max-height: 1280px) {
-  body {
-    transform: rotate(90deg);
-    transform-origin: bottom right;
-    position: absolute;
-    bottom: 0;
-    right: 96%;
-    height: 121vw;
-    width: 118vh;
-  }
-
-  .region.middle.center {
-    top: 82%;
-  }
-  
+  .compliments,
   .quotes,
-  .multimonth .month:nth-child(n+2),
-  .calendar table tr:nth-child(n+10),
-  .onecall .daily .item:nth-child(n+4) {
-    display: none;
+  .newsfeed {
+    visibility: hidden;
   }
 }
