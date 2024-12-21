@@ -42,7 +42,7 @@ Module.register("onecall", {
 		degreeLabel: true,
 		appendLocationNameToHeader: false,
 		useLocationAsHeader: false,
-		tempClass: "xlarge",
+		tempClass: "xxlarge",
 		tableClass: "xmedium",
 		showRainAmount: true,				// snow show only in winter months
 		onlyTemp: false,
@@ -244,7 +244,7 @@ Module.register("onecall", {
 	// windDirection, pressure, visibility and humidity
 	addExtraInfoWeather: function (wrapper) {
 		var small = document.createElement("div");
-		small.className = "normal medium currentweather";
+		small.className = "center normal medium currentweather";
 
 		var windIcon = document.createElement("span");
 		windIcon.className = "wi wi-strong-wind skyblue";
@@ -379,17 +379,17 @@ Module.register("onecall", {
 			if (this.config.showTopDescription) {
 				var description = document.createElement("div");
 				if (this.alert === null || !(this.now >= this.start && this.now < this.end) || !(this.date >= this.startDate && this.date <= this.endDate)) {
-					description.className = "bright current-description slarge details";
+					description.className = "center bright current-description slarge details";
 					description.innerHTML = this.desc;
 				} else if (this.alert !== null && (this.now >= this.start && this.now < this.end) && (this.date >= this.startDate && this.date <= this.endDate)) {
-					description.className = "orangered current-description medium details";
+					description.className = "center orangered current-description medium details";
 					description.innerHTML = "<i class=\"fas fa-wind\"></i> " + this.translate("ALERTS") + this.start + "-" + this.end;
 				} 
 				wrapper.appendChild(description);
 			}
 
 			var large = document.createElement("div");
-			large.className = "light";
+			large.className = "center light";
 
 			var degreeLabel = "";
 			if (this.config.units === "metric" || this.config.units === "imperial") {
@@ -437,33 +437,33 @@ Module.register("onecall", {
 				tempwrapper.appendChild(temperature);
 			}
 
+			wrapper.appendChild(large);
+
 			if (this.config.showIndoorTemp_Hum) {
 				var inDoor = document.createElement("div");
-				inDoor.className = "inDoor"; // hidden";
+				inDoor.className = "center inDoor"; // hidden";
 
 				var indoorIcon = document.createElement("span");
-				indoorIcon.className = "medium";
+				indoorIcon.className = "center medium";
 				indoorIcon.innerHTML = "<i class=\"fa fa-home gold\"></i> " + this.translate("HOME");
 				inDoor.appendChild(indoorIcon);
 
 				var indoorTemperature = document.createElement("span");
-				indoorTemperature.className = "medium bright indoorTemp";
+				indoorTemperature.className = "center medium bright indoorTemp";
 				indoorTemperature.innerHTML = " Update";
 				inDoor.appendChild(indoorTemperature);
 
 				var indoorHumidity = document.createElement("span");
-				indoorHumidity.className = "medium bright indoorHum";
+				indoorHumidity.className = "center medium bright indoorHum";
 				indoorHumidity.innerHTML = " sensor";
 				inDoor.appendChild(indoorHumidity);
-
-				large.appendChild(inDoor);
 			}
 
-			wrapper.appendChild(large);
+			wrapper.appendChild(inDoor);
 
 			if (this.config.onlyTemp === false) {
 				var small = document.createElement("div");
-				small.className = "normal medium details";
+				small.className = "center normal medium details";
 
 				// only for metric.
 				if (this.config.showFeelsLike) {
@@ -514,7 +514,7 @@ Module.register("onecall", {
 				// min max temp.
 				if (this.config.showMinMax) {
 					var minmax = document.createElement("div"); 
-					minmax.className = "medium";
+					minmax.className = "center medium";
 					minmax.innerHTML = "<span class='coral'>Max. <i class=\"wi wi-thermometer xmedium\"></i> " + this.maxTemp.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + "</span> &nbsp; <span class='skyblue'>Min. <i class=\"wi wi-thermometer xmedium\"></i> " + this.minTemp.replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + "</span>";
 					small.appendChild(minmax);
 				}
@@ -522,7 +522,7 @@ Module.register("onecall", {
 				// dew point.
 				if (this.config.showDew) {
 					var dew = document.createElement("span"); 
-					dew.className = "dew medium cyan";
+					dew.className = "center dew medium cyan";
 					dew.innerHTML = "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1).replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + " &nbsp; "; // this.translate("Dew Point: ") + "<i class=\"wi wi-raindrops lightgreen\"></i> " + this.dew.toFixed(1).replace(".", this.config.decimalSymbol) + "&deg;" + degreeLabel + " &nbsp; ";
 					small.appendChild(dew);
 				}
@@ -530,7 +530,7 @@ Module.register("onecall", {
 				// uv index.
 				if (this.config.showUvi) {
 					var uvi = document.createElement("span");
-					uvi.className = "uvi medium";
+					uvi.className = "center uvi medium";
 					uvi.innerHTML = "<i class=\"wi wi-hot gold\"></i> " + this.uvi.toFixed(1).replace(".", this.config.decimalSymbol) + " &nbsp; "; // this.translate("UVI") + "<i class=\"wi wi-hot gold\"></i> " + this.uvi.toFixed(1).replace(".", this.config.decimalSymbol);
 					if (this.uvi < 0.1) {
 						uvi.className = uvi.className + " lightgreen";
@@ -552,7 +552,7 @@ Module.register("onecall", {
 				// precipitation
 				if (this.config.showCurrentRainAmount) {
 					var precipitation = document.createElement("span");
-					precipitation.className = "prep medium";
+					precipitation.className = "center prep medium";
 					if (this.precipitation > 0) {
 						if(config.units === "imperial") {
 							precipitation.innerHTML = (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-umbrella lime\"></i>"; // this.translate("PRECIP") + (this.precipitation / 25.4).toFixed(2).replace(".", this.config.decimalSymbol) + " in <i class=\"wi wi-umbrella lime\"></i>";
@@ -570,7 +570,7 @@ Module.register("onecall", {
 			//weather description and alerts.
 			if (!this.config.showTopDescription) {
 				var description = document.createElement("div");
-				description.className = "bright current-description details slarge";
+				description.className = "center bright current-description details slarge";
 				if (this.alert === null || !(this.now >= this.start && this.now < this.end) || !(this.date >= this.startDate && this.date <= this.endDate)) {
 					description.innerHTML = this.desc;
 				} else if (this.alert !== null && (this.now >= this.start && this.now < this.end) && (this.date >= this.startDate && this.date <= this.endDate)) {
@@ -584,7 +584,7 @@ Module.register("onecall", {
 		if (this.config.processAir) {
 
 			var aqi = document.createElement("div");
-			aqi.className = "normal xslarge aqi bright";
+			aqi.className = "center normal xslarge aqi bright";
 			var aqi_q = null; var aqi_c = null; var aqi_b = null;
 			if (this.config.calculateAqi) {
 				if (this.aqi_i <= 25) {
@@ -631,7 +631,7 @@ Module.register("onecall", {
 				
 			if (this.config.showAqiData && !this.config.showPollution) {
 				var aqi_d = document.createElement("div");
-				aqi_d.className = "normal small aqi_d";
+				aqi_d.className = "center normal small aqi_d";
 				aqi_d.innerHTML = "PM<sub>10</sub> <span class=bright>" + Math.round(this.c_pm10/1.8)
 						+ "</span>; PM<sub>2.5</sub> <span class=bright>" + Math.round(this.c_pm25/1.1)
 						+ "</span>; O<sub>3</sub> <span class=bright>" + Math.round(this.c_o3/2.4*1.7)
