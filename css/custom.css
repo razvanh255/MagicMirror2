@@ -97,8 +97,14 @@ header {
   line-height: 1.2;
 }
 
+.cxlarge {
+  font-size: 6rem;
+  line-height: 1;
+  letter-spacing: -3px;
+}
+
 .xxlarge {
-  font-size: 6rem !important;
+  font-size: 7rem;
   line-height: 1;
   background: -webkit-linear-gradient(white, darkgray);
   -webkit-text-fill-color: transparent;
@@ -151,7 +157,8 @@ header {
     margin-bottom: 15px !important;
 }
 
-.monthly .month {
+.monthly .month,
+.center {
     text-align: center;
 }
 
@@ -191,7 +198,7 @@ header {
   }
 
   .region.middle.center {
-    top: 82%;
+    top: 80%;
   }
   
   .quotes,
