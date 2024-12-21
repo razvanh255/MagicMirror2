@@ -27,10 +27,15 @@ Module.register("multimonth", {
 
     // Update at midnight
 
-start: function () {
-	this.storedEvents = [];
+    start: function () {
+        Log.info("Starting module: " + this.name);
+    	this.storedEvents = [];
 
-    function scheduleMidnightUpdate() {
+        // Call the function to start the first schedule
+        this.scheduleMidnightUpdate(); //.call(this);
+    },
+
+    scheduleMidnightUpdate: function () {
         const now = new Date();
         const nextMidnight = new Date(now);
 
@@ -45,13 +50,9 @@ start: function () {
             this.updateDom();
 
             // Reschedule the update for the next midnight
-            scheduleMidnightUpdate.call(this);
+            this.scheduleMidnightUpdate(); //.call(this);
         }, timeUntilMidnight);
-    }
-
-    // Call the function to start the first schedule
-    scheduleMidnightUpdate.call(this);
-},
+    },
 
     notificationReceived: function (notification, payload, sender) {
         if (notification === 'CALENDAR_EVENTS') {
@@ -59,8 +60,6 @@ start: function () {
             this.updateDom();
         }
     },
-
-    
 
     // Override dom generator.
     getDom: function () {

@@ -21,7 +21,7 @@ Module.register("swatch", {
 		var self = this;
 		setInterval(function() {
 			self.swatch();
-		}, 864);
+		}, 8640);
 	},
 
 	notificationReceived: function (notification, payload, sender) {
@@ -47,7 +47,7 @@ Module.register("swatch", {
 
 	getDom: function () {
 		var wrapper = document.createElement("div");
-		wrapper.className = "swatch";
+		wrapper.className = "center swatch";
 
 		var swatch_logo = document.createElement("span");
 		swatch_logo.className = "logo";

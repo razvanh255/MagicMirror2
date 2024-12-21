@@ -1,5 +1,5 @@
 .system-stats {
-    width: 100%;
+    min-width: 100%;
     line-height: 1rem;
 }
 
