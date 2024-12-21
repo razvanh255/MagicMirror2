@@ -10,7 +10,7 @@ Module.register("compliments", {
 		},
 		updateInterval: 30000,
 		remoteFile: null,
-		fadeSpeed: 4000,
+		fadeSpeed: config.animation,
 		remoteFileRefreshInterval: null,
 		morningStartTime: 5,
 		morningEndTime: 12,
