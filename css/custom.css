@@ -140,6 +140,10 @@ header {
   font-size: 1.2rem;
 }
 
+.calendar .fa-calendar {
+  color: skyblue;
+}
+
 @font-face {
   font-family: "Swatch It";
   src: url("../fonts/swatch.ttf");
